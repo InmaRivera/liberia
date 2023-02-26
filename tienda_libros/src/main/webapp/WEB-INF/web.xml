@@ -8,8 +8,8 @@
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>orderpra.jsp</welcome-file>
-		<welcome-file>admin.jsp</welcome-file>
 		<welcome-file>checkoutpra.jsp</welcome-file>
+		<welcome-file>admin.jsp</welcome-file>
 		<welcome-file>cliente.jsp</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>default.html</welcome-file>

@@ -4,18 +4,6 @@ public class LibroPedido
 {
 	private int idLibro;
 	private int cantidad;
-	public int getCantidad()
-	{
-		return cantidad;
-	}
-	public void setCantidad(int cantidad)
-	{
-		this.cantidad = cantidad;
-	}
-	public void setIdLibro(int idLibro)
-	{
-		this.idLibro = idLibro;
-	}
 	public LibroPedido(int idLibro, int cantidad)
 	{
 		this.idLibro = idLibro;
@@ -25,6 +13,22 @@ public class LibroPedido
 	{
 		return idLibro;
 	}
+	public void setIdLibro(int idLibro)
+	{
+		this.idLibro = idLibro;
+	}
+	public int getCantidad()
+	{
+		return cantidad;
+	}
+	public void setCantidad(int cantidad)
+	{
+		this.cantidad = cantidad;
+	}
+	
+
+	
+
 	public Autores getAutor()
 	{
 		return Libreria_pra.getAutor(idLibro);

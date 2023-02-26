@@ -22,53 +22,40 @@ public class LibroPra
 		cantidadLi = c;
 		precioLi = p;
 	}
+	private void setIdLibro(int idLibro)
+	{
+		this.idLibro = idLibro;
+		
+	}
 	public int getIdLibro()
 	{
 		return idLibro;
 	}
-	public void setIdLibro(int idLibro)
-	{
-		this.idLibro = idLibro;
-	}
+
 	public String getTituloLi()
 	{
 		return tituloLi;
 	}
-	public void setTituloLi(String tituloLi)
-	{
-		this.tituloLi = tituloLi;
-	}
+
 	public int getCantidadLi()
 	{
 		return cantidadLi;
 	}
-	public void setCantidadLi(int cantidadLi)
-	{
-		this.cantidadLi = cantidadLi;
-	}
+
 	public double getPrecioLi()
 	{
 		return precioLi;
 	}
-	public void setPrecioLi(double precioLi)
-	{
-		this.precioLi = precioLi;
-	}
+
 	public Autores getIdAutorFK()
 	{
 		return idAutorFK;
 	}
-	public void setIdAutorFK(Autores idAutorFK)
-	{
-		this.idAutorFK = idAutorFK;
-	}
+
 	public Editoriales getIdEditorialFK()
 	{
 		return idEditorialFK;
 	}
-	public void setIdEditorialFK(Editoriales idEditorialFK)
-	{
-		this.idEditorialFK = idEditorialFK;
-	}
+
 	
 }

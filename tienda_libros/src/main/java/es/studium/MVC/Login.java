@@ -54,7 +54,8 @@ public class Login extends HttpServlet {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
+	IOException {
 
 		// responde al index
 		request.setCharacterEncoding("UTF-8");
