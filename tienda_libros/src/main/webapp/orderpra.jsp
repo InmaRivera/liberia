@@ -17,6 +17,13 @@
 <title>Pedido</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<%
+String username = (String) session.getAttribute("usuario");
+if (username == null)
+{
+	response.sendRedirect("./index.jsp");
+}
+%>
 </head>
 <style>
 @import
@@ -51,6 +58,12 @@ h1, p {
 	text-align: center;
 }
 
+h5 {
+	color: #fff;
+	text-shadow: #000 3px 6px 4px;
+	text-align: center;
+}
+
 section {
 	background-color: #f7efd6;
 	opacity: 0.9;
@@ -58,8 +71,9 @@ section {
 }
 </style>
 
-<body  class="bg-dark">
+<body class="bg-dark">
 	<h1>Realizar pedido</h1>
+	<%="<h5> Hola " + username + "</h5>"%>
 	<br>
 	<br>
 	<section class="pt-5">
@@ -70,19 +84,22 @@ section {
 		<div class=" justify-content-center text-center">
 			<form name="AgregarForm" action="shopping" method="POST">
 				<input type="hidden" name="todo" value="add"> <select
-					class="form-select" aria-label="Default select example">
-					<option selected="idLibro" class="text-center">Seleccione un
-						libro:</option>
-					<option value="idLibro">
-						<% for (int i=0; i < Libreria_pra.tamano(); i++) 
-						{ 
-							out.println("<option value='" + i + "'>");
-                            out.println(Libreria_pra.getTitulo(i) + " | " + Libreria_pra.getAutor(i) + " | " +
-                            Libreria_pra.getPrecio(i));
-                            out.println("</option>");
-                    }
-                    %>
-					</option>
+					name="idLibro" class="form-select"
+					aria-label="Default select example">
+					<option class="text-center">Seleccione un libro:</option>
+					<%
+					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
+					libreria.cargarDatos();
+					LibroPra libro = new LibroPra();//OBJETO LIBROS
+					/* out.println(libreria.); */
+					//Modelo.Conectar();//LLAMADA AL modelo conectar 
+					for (int i = 0; i < libreria.tamano(); i++)
+					{
+						out.println("<option value='" + libreria.getId(i) + "'>");
+						out.println(libreria.getTitulo(i) + " - " + libreria.getAutor(i) + " -> " + libreria.getPrecio(i) + " €");
+					}
+					%>
+
 				</select>
 				<div class="input-group">
 					<span class="input-group-text">Indique la cantidad:</span> <input
@@ -94,57 +111,55 @@ section {
 					</div>
 				</div>
 			</form>
-			</form>
 			<hr />
 			<br />
-			<% // Scriplet 2: Chequea el contenido de la cesta 
-			ArrayList<LibroPedido> cesta = (ArrayList<LibroPedido>)
-                    session.getAttribute("carrito");
-                    if (cesta != null && cesta.size() > 0)
-                    {
-                    %>
+			<%
+			// Scriplet 2: Chequea el contenido de la cesta 
+			ArrayList<LibroPedido> cesta = (ArrayList<LibroPedido>) session.getAttribute("carrito");
+			if (cesta != null && cesta.size() > 0)
+			{
+			%>
 			<p>
 				<strong>Tu cesta contiene:</strong>
 			</p>
 			<table class="table table-dark table-hover">
 				<tr>
-					<th>Autor</th>
-					<th>Editorial</th>
 					<th>Título</th>
-					<th>Precio</th>
+					<th>Autor</th>
 					<th>Cantidad</th>
+					<th>Precio</th>
+
 					<th>&nbsp;</th>
 				</tr>
-				<% // Scriplet 3: Muestra los libros del carrito 
-				for (int i=0; i < cesta.size(); i++) 
+				<%
+				// Scriplet 3: Muestra los libros del carrito 
+				for (int i = 0; i < cesta.size(); i++)
 				{
-                            LibroPedido elementoPedido=cesta.get(i); %>
+					LibroPedido elementoPedido = cesta.get(i);
+				%>
 				<tr>
 					<form name="borrarForm" action="shopping" method="POST">
 						<input type="hidden" name="todo" value="remove"> <input
 							type="hidden" name="indiceElemento" value="<%=i%>">
-						<%-- <td>
-                                        <%=elementoPedido.getEditorial()%>
-                                            </td> --%>
-						<td><%=elementoPedido.getTitulo()%></td>
-						<td><%=elementoPedido.getAutor()%></td>
-						<td align="right"><%=elementoPedido.getPrecio()%> €</td>
-						<td align="right"><%=elementoPedido.getCantidad()%></td>
-						<td><button type="submit" class="btn btn-outline-dark boton"
-								value="Eliminar de la cesta"></button></td>
+						<td align="center"><%=elementoPedido.getTitulo()%></td>
+						<td lign="center"><%=elementoPedido.getAutor()%></td>
+						<td align="center"><%=elementoPedido.getCantidad()%></td>
+						<td align="center"><%=elementoPedido.getPrecio()%> €</td>
+						<td><input class="btn btn-outline-light" type="submit" value="Eliminar de la cesta"></td>
 					</form>
 				</tr>
-				<% } %>
+				<%
+				}
+				%>
 			</table>
 			<br />
 			<form name="checkoutForm" action="shopping" method="POST">
 				<input type="hidden" name="todo" value="checkout">
 				<button class="btn btn-outline-dark boton" type="submit"
 					value="Confirmar compra">Confirmar compra</button>
-
 			</form>
-			<% 
-			} 
+			<%
+			}
 			%>
 		</div>
 		<br> <br>

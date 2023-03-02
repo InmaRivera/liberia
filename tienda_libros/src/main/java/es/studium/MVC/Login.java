@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
 		//variable para diferenciar usuarios
 		//la iniciamos en -1 para no pisar 1 o 0 de nuestros usuarios
 		int tipoUsuarioLogado = -1;
-		//RequestDispatcher rd;
+
 		HttpSession session = request.getSession(false);
 
 		try
@@ -145,18 +145,17 @@ public class Login extends HttpServlet {
 						// Verificar en el administrador de aplicaciones de tomcat.
 						if(session != null)
 						{
+							//si la session no es nula, la invalidamos
 							session.invalidate();
 						}
 
 						session = request.getSession(true);
 						synchronized(session)
 						{
-							session.setAttribute("tipoUsuario", usuario);
-//							rd = request.getRequestDispatcher("/admin.jsp");
-
+							//y sincronizamos la nueva sesion según el tipo de usuario
+							session.setAttribute("usuario", usuario);
 						}
 						nextPage = "/admin.jsp";
-//						rd.forward(request, response);
 					}
 					//comprobamos con 1 si es cliente
 					else if(tipoUsuarioLogado==1)
@@ -172,8 +171,7 @@ public class Login extends HttpServlet {
 						synchronized(session)
 						{
 							session.setAttribute("usuario", usuario);
-//							rd = request.getRequestDispatcher("/shopping");
-//							rd.forward(request, response);
+
 						}
 						nextPage = "/orderpra.jsp";
 					}
@@ -207,8 +205,6 @@ public class Login extends HttpServlet {
 		RequestDispatcher requestDispatcher =
 				servletContext.getRequestDispatcher(nextPage);
 		requestDispatcher.forward(request, response);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-
 
 	}
 }

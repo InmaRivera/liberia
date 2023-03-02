@@ -15,16 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import es.studium.MVC.LibroPra;
 /**
  * Servlet implementation class Controlador
  */
+@SuppressWarnings("unused")
 @WebServlet("/shopping")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public void init(ServletConfig conf) throws ServletException
 	{
 		super.init(conf);
-		Libreria_pra.cargarDatos();
+		Modelo.Conectar();
+//		Libreria_pra.cargarDatos();
 	}
 	public Controlador() {
 		super();
@@ -46,7 +49,7 @@ public class Controlador extends HttpServlet {
 		String todo = request.getParameter("todo");
 		if(todo==null)
 		{
-			// Primer acceso, redirigir a order.jsp
+			// Primer acceso, redirigir a orderpra.jsp
 			nextPage = "/orderpra.jsp";
 		}
 		else if(todo.equals("add"))

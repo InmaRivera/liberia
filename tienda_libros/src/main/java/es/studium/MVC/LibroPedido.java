@@ -26,10 +26,7 @@ public class LibroPedido
 		this.cantidad = cantidad;
 	}
 	
-
-	
-
-	public Autores getAutor()
+	public String getAutor()
 	{
 		return Libreria_pra.getAutor(idLibro);
 	}

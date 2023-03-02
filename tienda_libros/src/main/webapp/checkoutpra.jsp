@@ -71,10 +71,11 @@ section {
 
 			<table class="table table-dark table-hover">
 				<tr>
-					<th>Autor</th>
 					<th>Título</th>
-					<th>Precio</th>
+					<th>Autor</th>
 					<th>Cantidad</th>
+					<th>Precio</th>
+
 				</tr>
 				<%
 		// Muestra los elementos del carrito
@@ -85,23 +86,31 @@ section {
 				<tr>
 					<td><%=item.getTitulo()%></td>
 					<td><%=item.getAutor()%></td>
-					<td align="right"><%=item.getPrecio()%> €</td>
-					<td align="right"><%=item.getCantidad()%></td>
+					<td><%=item.getCantidad()%></td>
+					<td><%=item.getPrecio()%> €</td>
+					<hr>
 				</tr>
 				<% } session.invalidate(); %>
+
 				<tr>
 					<th align="right" colspan="2">Total</th>
 					<th align="right"><%=request.getAttribute("precioTotal")%></th>
 					<th align="right"><%=request.getAttribute("cantidadTotal")%></th>
 				</tr>
 			</table>
-			<br /> <br />
+			<br/> 
+			<br/>
 			<p>Pulsa aquí para realizar otro pedido</p>
 			<div class="col-12 pt-5">
-				<button class="btn btn-outline-dark boton" type="submit"
+				<!-- <button class="btn btn-outline-dark boton" type="submit"
 					href="shopping">
 					<a>Otro pedido</a>
-				</button>
+				</button> -->	
+				<form name="checkoutForm" action="shopping" method="POST">
+				<input type="hidden" name="todo" value="checkout">
+				<button class="btn btn-outline-dark boton" type="submit"
+					value="Otro pedido">Otro pedido</button>
+			</form>
 			</div>
 		</div>
 		<br />
