@@ -1,6 +1,7 @@
 package es.studium.MVC;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
@@ -110,12 +111,42 @@ public class Controlador extends HttpServlet {
 			// Calcula el precio total de todos los elementos del carrito
 			double precioTotal = 0;
 			int cantidadTotalOrdenada = 0;
+			Pedidos pedido = new Pedidos();
+			
+			
+			int idClienteFK = pedido.idClienteFK;
+			String fechaPedido = pedido.fechaPedido;
+			String fechaEnviado = pedido.fechaEnviado;
+			String resultado = "";
+			
 			for(LibroPedido item: elCarrito)
 			{
 				double precio = item.getPrecio();
 				int cantidadOrdenada = item.getCantidad();
 				precioTotal += precio * cantidadOrdenada;
-				cantidadTotalOrdenada += cantidadOrdenada;
+				cantidadTotalOrdenada += cantidadOrdenada;							
+				try
+				{
+					//Crear una sentencia
+					Modelo.conn.createStatement();
+					//insertamos pedido
+					String sql ="INSERT INTO pedidos VALUES('null', '"+fechaPedido+"', '"+fechaEnviado+"', idClienteFK = '"+idClienteFK+"');";
+					System.out.println(sql);
+					//y ejecutar la sentencia SQL
+					if((Modelo.statement.executeUpdate(sql))==1)
+					{
+						resultado = "<p>Error al hacer pedido<p>";
+					}
+					else
+					{
+						resultado = "<p>Pedido realizado correctamente<p>";
+					}
+					
+				} catch (SQLException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			// Da formato al precio con dos decimales
 			StringBuilder sb = new StringBuilder();
@@ -125,8 +156,19 @@ public class Controlador extends HttpServlet {
 			// Coloca el precioTotal y la cantidadtotal en el request
 			request.setAttribute("precioTotal", sb.toString());
 			request.setAttribute("cantidadTotal", cantidadTotalOrdenada+"");
+			
 			// Redirige a checkout.jsp
 			nextPage = "/checkoutpra.jsp";
+		}
+		// seguir comprando
+		else if (todo.equals("otro"))
+		{
+			nextPage = "/orderpra.jsp";
+		}
+		//para salir de la app
+		else if (todo.equals("logout"))
+		{
+			nextPage = "/index.jsp";
 		}
 		ServletContext servletContext = getServletContext();
 		RequestDispatcher requestDispatcher =

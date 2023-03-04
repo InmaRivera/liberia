@@ -59,7 +59,6 @@ public class Login extends HttpServlet {
 
 		// responde al index
 		request.setCharacterEncoding("UTF-8");
-		//PrintWriter out = response.getWriter();
 		Connection conn = null;
 		Statement stmt = null;
 		String nextPage = "";
@@ -73,7 +72,6 @@ public class Login extends HttpServlet {
 		{
 			// Obtener una conexión del pool
 			conn = pool.getConnection();
-			//System.out.println(conn);
 			stmt = conn.createStatement();
 			// creo una variable para diferenciar entre admin y cliente al iniciar sesion
 
@@ -84,17 +82,13 @@ public class Login extends HttpServlet {
 			if(usuario.length()==0)
 			{
 				//si no introduce el nombre
-//				out.println("<h3>Debes introducir tu usuario</h3>");
 				session.setAttribute("usuario", usuario);
-//				rd = request.getRequestDispatcher("index1.jsp");
 				nextPage = "/index1.jsp";
 			}
 			else if(password.length()==0)
 			{
 				//si no introducen contraseña
-//				out.println("<h3>Debes introducir tu contraseña</h3>");
 				session.setAttribute("usuario", usuario);
-//				rd = request.getRequestDispatcher("index2.jsp");
 				nextPage = "/index2.jsp";
 			}
 
@@ -102,22 +96,16 @@ public class Login extends HttpServlet {
 			{
 				// Verificar que existe el usuario y su correspondiente clave
 				StringBuilder sqlStr = new StringBuilder();
-
 				sqlStr.append("SELECT * FROM usuarios WHERE ");
 				sqlStr.append("STRCMP(usuarios.nombreUsuario, '").append(usuario).append("') = 0 ");
-				//sqlStr.append("AND STRCMP(usuarios.tipoUsuario, '").append(tipo).append("') = " +tipo);
 				sqlStr.append(" AND STRCMP(usuarios.claveUsuario, SHA2('").append(password).append("',256)) = 0;");
 
 				ResultSet rset = stmt.executeQuery(sqlStr.toString());
 
 				if(!rset.next())
 				{
-					// Si el resultset no está vacío y la contraseña o usuario mal
-					//	out.println("<h5> libros base: " + libros +"</h5>");
-//					out.println("<h2>Nombre de usuario o contraseña incorrectos</h2>");
-//					out.println("<p><a href='index.html'>Volver a Login</a></p>");
 					session.setAttribute("usuario", usuario);
-//					rd = request.getRequestDispatcher("index3.jsp");
+
 					nextPage = "/index3.jsp";
 				}
 				else
@@ -130,13 +118,8 @@ public class Login extends HttpServlet {
 							+ "nombreUsuario = '"
 							+ usuario 
 							+ "' AND claveUsuario = SHA2('" + password +  "', 256);");
-					//System.out.println(sql+ "\n ");
 
 					// Si los datos son correctos comprobamos si es usuario admin o es usuario cliente
-
-			
-
-
 
 					//comprobamos con 0 si es trabajador
 					if(tipoUsuarioLogado==0)
@@ -155,7 +138,7 @@ public class Login extends HttpServlet {
 							//y sincronizamos la nueva sesion según el tipo de usuario
 							session.setAttribute("usuario", usuario);
 						}
-						nextPage = "/admin.jsp";
+						nextPage = "/principal.jsp";
 					}
 					//comprobamos con 1 si es cliente
 					else if(tipoUsuarioLogado==1)
@@ -175,7 +158,6 @@ public class Login extends HttpServlet {
 						}
 						nextPage = "/orderpra.jsp";
 					}
-					//					}
 				}
 			}
 		}
@@ -186,7 +168,7 @@ public class Login extends HttpServlet {
 		finally
 		{
 			// Cerramos objetos
-			//out.close();
+		
 			try
 			{if(stmt != null)
 			{
@@ -205,6 +187,5 @@ public class Login extends HttpServlet {
 		RequestDispatcher requestDispatcher =
 				servletContext.getRequestDispatcher(nextPage);
 		requestDispatcher.forward(request, response);
-
 	}
 }

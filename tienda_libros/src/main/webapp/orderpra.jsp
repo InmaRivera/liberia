@@ -86,16 +86,14 @@ section {
 				<input type="hidden" name="todo" value="add"> <select
 					name="idLibro" class="form-select"
 					aria-label="Default select example">
-					<option class="text-center">Seleccione un libro:</option>
 					<%
 					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
-					libreria.cargarDatos();
+					libreria.cargarDatos();//cargamos los datos de libreria
 					LibroPra libro = new LibroPra();//OBJETO LIBROS
-					/* out.println(libreria.); */
-					//Modelo.Conectar();//LLAMADA AL modelo conectar 
+					
 					for (int i = 0; i < libreria.tamano(); i++)
 					{
-						out.println("<option value='" + libreria.getId(i) + "'>");
+						out.println("<option class='text-center' value='" + libreria.getId(i) + "'>");
 						out.println(libreria.getTitulo(i) + " - " + libreria.getAutor(i) + " -> " + libreria.getPrecio(i) + " €");
 					}
 					%>
@@ -145,7 +143,8 @@ section {
 						<td lign="center"><%=elementoPedido.getAutor()%></td>
 						<td align="center"><%=elementoPedido.getCantidad()%></td>
 						<td align="center"><%=elementoPedido.getPrecio()%> €</td>
-						<td><input class="btn btn-outline-light" type="submit" value="Eliminar de la cesta"></td>
+						<td><input class="btn btn-outline-light" type="submit"
+							value="Eliminar de la cesta"></td>
 					</form>
 				</tr>
 				<%
@@ -157,12 +156,13 @@ section {
 				<input type="hidden" name="todo" value="checkout">
 				<button class="btn btn-outline-dark boton" type="submit"
 					value="Confirmar compra">Confirmar compra</button>
-			</form>
+					</form>
 			<%
 			}
 			%>
 		</div>
-		<br> <br>
+		<br> 
+		<br>
 	</section>
 	<!-- End form -->
 </body>

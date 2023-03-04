@@ -5,12 +5,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.sql.DataSource;
-
 public class Libreria_pra 
 {
 	// Pool de conexiones a la base de datos
-	private static DataSource pool;
 	
 	String libroSeleccionado ="";
 	Connection conn = null;

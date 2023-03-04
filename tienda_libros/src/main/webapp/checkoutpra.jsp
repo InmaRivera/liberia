@@ -68,7 +68,7 @@ section {
 		</p>
 		<!-- table -->
 		<div class=" justify-content-center text-center">
-
+		
 			<table class="table table-dark table-hover">
 				<tr>
 					<th>Título</th>
@@ -106,10 +106,9 @@ section {
 					href="shopping">
 					<a>Otro pedido</a>
 				</button> -->	
-				<form name="checkoutForm" action="shopping" method="POST">
-				<input type="hidden" name="todo" value="checkout">
-				<button class="btn btn-outline-dark boton" type="submit"
-					value="Otro pedido">Otro pedido</button>
+				 <form name="checkout" action="shopping" method="POST">
+				<button class="btn btn-outline-dark boton" name="todo" value="otro"  href="orderpra.jsp">Otro pedido</button>
+				
 			</form>
 			</div>
 		</div>
