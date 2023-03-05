@@ -152,17 +152,16 @@ section {
 				%>
 			</table>
 			<br />
-			<form name="checkoutForm" action="shopping" method="POST">
+			<form name="checkoutForm" action="ControladorPedido" method="POST">
 				<input type="hidden" name="todo" value="checkout">
 				<button class="btn btn-outline-dark boton" type="submit"
 					value="Confirmar compra">Confirmar compra</button>
-					</form>
+			</form>
 			<%
 			}
 			%>
 		</div>
-		<br> 
-		<br>
+		<br> <br>
 	</section>
 	<!-- End form -->
 </body>

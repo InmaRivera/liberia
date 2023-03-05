@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Libreria_pra 
 {
 	// Pool de conexiones a la base de datos
-	
 	String libroSeleccionado ="";
 	Connection conn = null;
 	Statement statement = null;
@@ -21,9 +20,6 @@ public class Libreria_pra
 	}
 
 
-
-
-
 	public void cargarDatos()
 	{
 		// Creamos objetos para la conexión
@@ -34,17 +30,11 @@ public class Libreria_pra
 
 			//Paso 3: Crear las sentencias SQL utilizando objetos de la clase Statement
 			Modelo.Conectar();
-			//System.out.println(conn);
-//			stmt = conn.createStatement();
+
 			//Paso 4: Ejecutar las sentencias
 			String sql = "SELECT libros.*, autores.nombreAutor FROM libros INNER JOIN autores ON libros.idAutorFK = idAutor;";
 			ResultSet rs = Modelo.statement.executeQuery(sql);
-			//System.out.println(sql);
-			//			String sqlStr = "SELECT * FROM libros";
-			//System.out.println("resultado " + statement);
-			//			ResultSet rs = stmt.executeQuery(sqlStr);
 
-			//			String libroSeleccionado ="";
 			LibroPra libro;
 			while(rs.next())
 			{

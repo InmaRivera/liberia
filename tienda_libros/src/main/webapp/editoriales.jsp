@@ -1,14 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <title>Autores</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
+	rel="stylesheet">
+<title>Editoriales</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
     .fondo:hover {
@@ -47,20 +51,26 @@
 </style>
 
 <body>
-    <h1>Autores</h1>
-    <div class="list-group text-center">
-        <table class="table table-dark table-hover">
-            <tr>
-                <th>Nombre Autor</th>
-            </tr>
-            <tr>
-                <td>Code</td>
-            </tr>
-        </table>
-        	<form name="checkout" action="shopping" method="POST">
+	<h1>Editoriales</h1>
+	<!-- Example Code -->
+	<section>
+		<div class="list-group text-center">
+			<table class="table table-dark table-hover">
+				<tr>
+					<th>Nombre Editorial</th>
+				</tr>
+				<tr>
+					<td>Editorial</td>
+				</tr>
+			</table>
+			<br>
+			<form name="checkout" action="shopping" method="POST">
 				<button name="todo" value="volver" class="btn btn-dark boton">Volver</button>
 			</form>
-    </div>
+		</div>
+
+	</section>
+	<!-- End Example Code -->
 </body>
 
 </html>

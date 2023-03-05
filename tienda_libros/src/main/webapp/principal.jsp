@@ -69,18 +69,13 @@ h5 {
 	<small> <%="<h5> Bienvenido,  " + username + "</h5>"%></small>
 	<!-- Example Code -->
 	<div class="list-group text-center">
-		<a href="#" class="list-group-item list-group-item-action fondo"
-			aria-current="true">
-			LIBROS</a> 
-		<a href="#"	class="list-group-item list-group-item-action fondo"><%
-			Editoriales editorial = new Editoriales();
-			%>EDITORIALES</a> 
-		<a href="#" class="list-group-item list-group-item-action fondo ">AUTORES</a> 
-		<!-- <a href="#" class="list-group-item list-group-item-action fondo"></a>  -->
-		<a href="#"	class="list-group-item list-group-item-action fondo">PEDIDOS</a>
+	<a href="libros.jsp" class="list-group-item list-group-item-action fondo" aria-current="true">LIBROS</a> 
+		<a href="editoriales.jsp"class="list-group-item list-group-item-action fondo">EDITORIALES</a> 
+		<a href="autores.jsp" class="list-group-item list-group-item-action fondo ">AUTORES</a> 
+		<a href="pedidos.jsp" class="list-group-item list-group-item-action fondo">PEDIDOS</a>
 		<br>
 		 <form name="checkout" action="shopping" method="POST">
-		<button href="index.jsp" name="todo" value="logout" class="btn btn-outline-light boton">SALIR</button>
+		<button name="todo" value="logout" class="btn btn-dark boton">SALIR</button>
 	</form>
 	</div>
 	<!-- End Example Code -->
