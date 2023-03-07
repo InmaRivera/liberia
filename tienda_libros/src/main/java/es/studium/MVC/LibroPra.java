@@ -7,9 +7,9 @@ public class LibroPra
 	private int cantidadLi;
 	private double precioLi;
 	private String autor;
-	private Autores idAutorFK = new Autores();
-	private Editoriales idEditorialFK = new Editoriales();
-	
+//	private Autores idAutorFK = new Autores(idLibro, autor);
+//	private Editoriales idEditorialFK = new Editoriales(idLibro, autor);
+//	
 	public LibroPra() {
 		this.idLibro = 0;
 		this.tituloLi = "";
@@ -69,20 +69,21 @@ public class LibroPra
 		this.autor = autor;
 	}
 
-	public Autores getIdAutorFK()
-	{
-		return idAutorFK;
-	}
-	public void setIdAutorFK(Autores idAutorFK)
-	{
-		this.idAutorFK = idAutorFK;
-	}
-	public Editoriales getIdEditorialFK()
-	{
-		return idEditorialFK;
-	}
-	public void setIdEditorialFK(Editoriales idEditorialFK)
-	{
-		this.idEditorialFK = idEditorialFK;
-	}
+//	public Autores getIdAutorFK()
+//	{
+//		return idAutorFK;
+//	}
+//	public void setIdAutorFK(Autores idAutorFK)
+//	{
+//		this.idAutorFK = idAutorFK;
+//	}
+//	public Editoriales getIdEditorialFK()
+//	{
+//		return idEditorialFK;
+//	}
+//	public void setIdEditorialFK(Editoriales idEditorialFK)
+//	{
+//		this.idEditorialFK = idEditorialFK;
+//	}
+
 }

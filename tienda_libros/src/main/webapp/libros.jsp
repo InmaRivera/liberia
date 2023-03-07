@@ -61,21 +61,27 @@ h1, p {
 				Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 				libreria.cargarDatos();//cargamos los datos de libreria
 				LibroPra libro = new LibroPra();//OBJETO LIBROS
-				/* ArrayList<LibroPra> listalibros = ControladorLibros.getListaLibros(); */
+				libro.toString();
+				ControladorLibros mostrarLibros = new ControladorLibros();
+				mostrarLibros.mostrarLibros();
 				%>
 				<tr>
 					<th>Libros disponibles</th>
+					<th>Autor</th>
+					<th>Editorial</th>
 					<th>Stock</th>
 				</tr>
 				<tr>
-					<td>libros</td>
-					<td>x libros</td>
+					<td><%libro.getTituloLi(); %></td>
+					<td><%libro.getAutor(); %></td>
+					<td><%libro.getIdEditorialFK(); %></td>
+					<td><%libro.getCantidadLi(); %></td>
 					<!-- 	<td><input class="btn btn-outline-light" type="submit"
 							value="Cambiar estado pedido"></td> -->
 				</tr>
 			</table>
 		
-			<a href="#" class="list-group-item list-group-item-action fondo">Alta
+			<a href="ControladorLibros" class="list-group-item list-group-item-action fondo">Alta
 				libros</a> <a href="#"
 				class="list-group-item list-group-item-action fondo ">Modificar
 				libro</a>

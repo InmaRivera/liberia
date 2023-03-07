@@ -4,6 +4,10 @@ public class LibroPedido
 {
 	private int idLibro;
 	private int cantidad;
+	public LibroPedido() {
+		idLibro = 0;
+		cantidad = 0;
+	}
 	public LibroPedido(int idLibro, int cantidad)
 	{
 		this.idLibro = idLibro;

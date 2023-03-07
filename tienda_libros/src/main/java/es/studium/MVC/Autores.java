@@ -5,9 +5,9 @@ public class Autores
 	private String autor;
 	private int idAutor;
 	
-	public Autores()
+	public Autores(int idAutor, String nombreAutor)
 	{
-		autor = "";
+		nombreAutor = "";
 		idAutor = 0;
 	}
 

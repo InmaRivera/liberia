@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ page session="true" import="java.util.*, es.studium.MVC.*"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -14,6 +15,9 @@
 <title>Pedidos</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<%		String usuario = (String) session.getAttribute("usuario");
+	int tipoUsuario = 1; 
+	%>
 </head>
 <style>
 .fondo:hover {
@@ -62,9 +66,20 @@ h1, p {
 					<th>Lista de pedidos</th>
 					<th>Estado del pedido</th>
 				</tr>
+				<% 
+				ControladorLibros listalibro = new ControladorLibros();
+				Pedidos pedido = new Pedidos();
+				for (int i=0; i >= pedido.hashCode(); i++)
+				{
+					out.println("<td class='text-center'>" + pedido.getIdPedido() + " ");
+					out.println(pedido.isEnviado()+ "'>");
+					out.println("</td>");
+					
+				}
+				%>
 				<tr>
-					<td>pedidos</td>
-						<td><input class="btn btn-outline-light" type="submit"
+					<td><%pedido.getIdPedido(); %></td>
+						<td><%pedido.isEnviado(); %><input class="btn btn-outline-light" type="submit"
 							value="Cambiar estado pedido"></td>
 				</tr>
 			</table>

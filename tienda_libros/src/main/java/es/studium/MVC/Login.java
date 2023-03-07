@@ -137,6 +137,7 @@ public class Login extends HttpServlet {
 						{
 							//y sincronizamos la nueva sesion según el tipo de usuario
 							session.setAttribute("usuario", usuario);
+							session.setAttribute("idUsuario", rset.getInt("idUsuario"));
 						}
 						nextPage = "/principal.jsp";
 					}
@@ -154,6 +155,7 @@ public class Login extends HttpServlet {
 						synchronized(session)
 						{
 							session.setAttribute("usuario", usuario);
+							session.setAttribute("idUsuario", rset.getInt("idUsuario"));
 
 						}
 						nextPage = "/orderpra.jsp";

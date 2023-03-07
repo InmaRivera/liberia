@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page session="true" import="java.util.*, es.studium.MVC.*"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,41 +14,46 @@
 <title>Editoriales</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<%		String usuario = (String) session.getAttribute("usuario");
+	if(usuario==null){  
+		response.sendRedirect("./index.jsp");
+	}
+	%>
 </head>
 <style>
-    .fondo:hover {
-        background-color: #4bf5d9;
-        color: #000;
-    }
+.fondo:hover {
+	background-color: #4bf5d9;
+	color: #000;
+}
 
-    a {
-        opacity: 0.5;
-    }
+a {
+	opacity: 0.5;
+}
 
-    a:hover {
-        opacity: 0.9;
-        font-size: larger;
-        font-weight: 200;
-    }
+a:hover {
+	opacity: 0.9;
+	font-size: larger;
+	font-weight: 200;
+}
 
-    body {
-        background-image: url("https://album.mediaset.es/eimg/2020/04/01/Fagw0vREqPnTbfcRoKSHm6.jpg?w=480");
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-        height: 100%;
-        padding-top: 5%;
-        padding-right: 20%;
-        padding-left: 20%;
-    }
+body {
+	background-image:
+		url("https://album.mediaset.es/eimg/2020/04/01/Fagw0vREqPnTbfcRoKSHm6.jpg?w=480");
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	height: 100%;
+	padding-top: 5%;
+	padding-right: 20%;
+	padding-left: 20%;
+}
 
-    h1,
-    p {
-        font-family: 'Pacifico', cursive;
-        font-family: 'Shantell Sans', cursive;
-        color: #000;
-        text-shadow: #fff 3px 6px 4px;
-        text-align: center;
-    }
+h1, p {
+	font-family: 'Pacifico', cursive;
+	font-family: 'Shantell Sans', cursive;
+	color: #000;
+	text-shadow: #fff 3px 6px 4px;
+	text-align: center;
+}
 </style>
 
 <body>
@@ -57,16 +63,33 @@
 		<div class="list-group text-center">
 			<table class="table table-dark table-hover">
 				<tr>
+					<th>ID</th>
 					<th>Nombre Editorial</th>
 				</tr>
+
+			<%
+			ArrayList<Editoriales> listadoEditorial = ControladorEditorial.getEditoriales();
+			for (int i = 0; i < listadoEditorial.size(); i++)
+			{
+				Editoriales editorial = listadoEditorial.get(i);
+			/* 	out.println(editorial); */
+				
+			%>
+
 				<tr>
-					<td>Editorial</td>
+					<td><%=editorial.getIdEditorial()%></td>
+					<%-- <td><%=i+1%></td> --%>
+					<td><%=editorial.getNombreEditorial()%></td>
 				</tr>
+				<%
+				}
+				%>
+
 			</table>
-			<br>
 			<form name="checkout" action="shopping" method="POST">
 				<button name="todo" value="volver" class="btn btn-dark boton">Volver</button>
 			</form>
+
 		</div>
 
 	</section>

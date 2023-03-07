@@ -89,27 +89,28 @@ section {
 					<%
 					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 					libreria.cargarDatos();//cargamos los datos de libreria
-					LibroPra libro = new LibroPra();//OBJETO LIBROS
-					
-					for (int i = 0; i < libreria.tamano(); i++)
+					/* LibroPra libro = new LibroPra();//OBJETO LIBROS  */
+
+					for (int i = 0; i < Libreria_pra.tamano(); i++)
 					{
 						out.println("<option class='text-center' value='" + libreria.getId(i) + "'>");
-						out.println(libreria.getTitulo(i) + " - " + libreria.getAutor(i) + " -> " + libreria.getPrecio(i) + " €");
+						out.println(libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " " + libreria.getPrecio(i) + " €");
+						out.println("</option>");
 					}
 					%>
 
 				</select>
 				<div class="input-group">
 					<span class="input-group-text">Indique la cantidad:</span> <input
-						type="text" aria-label="First name" class="form-control"
-						type="text" name="cantidad" size="10" value="1"> <br>
+						type="text" class="form-control" type="text" name="cantidad"
+						size="10" value="1"> <br>
+			
 					<div class="col-12 pt-5">
 						<button class="btn btn-outline-dark boton" type="submit"
 							value="Añadir a la cesta">Añadir a la cesta</button>
 					</div>
 				</div>
 			</form>
-			<hr />
 			<br />
 			<%
 			// Scriplet 2: Chequea el contenido de la cesta 
@@ -122,23 +123,25 @@ section {
 			</p>
 			<table class="table table-dark table-hover">
 				<tr>
+				<th>ID</th>
 					<th>Título</th>
 					<th>Autor</th>
 					<th>Cantidad</th>
 					<th>Precio</th>
-
 					<th>&nbsp;</th>
 				</tr>
 				<%
-				// Scriplet 3: Muestra los libros del carrito 
-				for (int i = 0; i < cesta.size(); i++)
+				// Scriplet 3: Muestra los libros del carrito
+				for (int i = 1; i < cesta.size(); i++)
 				{
 					LibroPedido elementoPedido = cesta.get(i);
+					out.println("elemento pedido resul: " + elementoPedido);
 				%>
 				<tr>
 					<form name="borrarForm" action="shopping" method="POST">
 						<input type="hidden" name="todo" value="remove"> <input
 							type="hidden" name="indiceElemento" value="<%=i%>">
+						<td align="center"><%=elementoPedido.getIdLibro()%></td>
 						<td align="center"><%=elementoPedido.getTitulo()%></td>
 						<td lign="center"><%=elementoPedido.getAutor()%></td>
 						<td align="center"><%=elementoPedido.getCantidad()%></td>

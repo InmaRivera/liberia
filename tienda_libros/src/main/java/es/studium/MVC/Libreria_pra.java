@@ -107,4 +107,13 @@ public class Libreria_pra
 		return tabla.get(idLibro).getPrecioLi();
 
 	}
+	/**
+	 * Devuelve el stock del libro identificado con idLibro
+	 */
+	public static int getStock(int idLibro)
+	{
+		return tabla.get(idLibro).getCantidadLi();
+
+	}
+
 }

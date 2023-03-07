@@ -21,7 +21,7 @@ import es.studium.MVC.LibroPra;
 /**
  * Servlet implementation class Controlador
  */
-@SuppressWarnings("unused")
+//@SuppressWarnings("unused")
 @WebServlet("/shopping")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -67,45 +67,64 @@ public class Controlador extends HttpServlet {
 			{
 				// Mandado por order.jsp con los parámetros idLibro y cantidad
 				// Creamos un elementoPedido y lo añadimos al carrito
-				LibroPedido nuevoElementoPedido = new LibroPedido(
-						Integer.parseInt(request.getParameter("idLibro")),
-						Integer.parseInt(request.getParameter("cantidad")));
-				if(elCarrito==null)
-				{
-					// El carrito está vacío
-					elCarrito = new ArrayList<>();
-					elCarrito.add(nuevoElementoPedido);
-					// Enlazar el carrito con la sesión
-					session.setAttribute("carrito", elCarrito);
-				}
-				else
-				{
-					// Comprueba si el libro está ya en el carrito
-					// Si lo está, actualizamos la cantidad
-					// Si no está, lo añadimos
-					boolean encontrado = false;
-					Iterator<LibroPedido> iter = elCarrito.iterator();
-					while(!encontrado&&iter.hasNext())
+				int indice = Integer.parseInt(request.getParameter("idLibro"));
+				int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+				int stock = Libreria_pra.getStock(indice);
+				if (cantidad <= stock) {
+					LibroPedido nuevoElementoPedido = new LibroPedido(indice, cantidad);
+					if(elCarrito==null)
 					{
-						LibroPedido unElementoPedido =
-								(LibroPedido)iter.next();
-						if(unElementoPedido.getIdLibro() ==
-								nuevoElementoPedido.getIdLibro())
+
+						// El carrito está vacío
+						elCarrito = new ArrayList<>();
+						elCarrito.add(nuevoElementoPedido);
+						// Enlazar el carrito con la sesión
+						session.setAttribute("carrito", elCarrito);
+					}
+					else
+					{
+						// Comprueba si el libro está ya en el carrito
+						// Si lo está, actualizamos la cantidad
+						// Si no está, lo añadimos
+						boolean encontrado = false;
+						Iterator<LibroPedido> iter = elCarrito.iterator();
+						while(!encontrado&&iter.hasNext())
 						{
-							unElementoPedido.setCantidad(unElementoPedido.getCantidad() +
-									nuevoElementoPedido.getCantidad());
-							encontrado = true;
+							LibroPedido unElementoPedido = (LibroPedido)iter.next();
+
+							if(unElementoPedido.getIdLibro() ==	nuevoElementoPedido.getIdLibro())
+							{
+								int nuevaCantidad = unElementoPedido.getCantidad() +
+										nuevoElementoPedido.getCantidad();
+								//comprobamos cantidad en Stock
+								if(nuevaCantidad <= stock)
+								{
+									unElementoPedido.setCantidad(nuevaCantidad);
+									encontrado = true;
+								}
+								else
+								{
+															
+									throw new ServletException("ERROR: no hay suficientes libros en nuestros stock.");
+
+								}
+							}
+						}
+						if(!encontrado)
+						{
+							// Lo añade al carrito
+							elCarrito.add(nuevoElementoPedido);
 						}
 					}
-					if(!encontrado)
-					{
-						// Lo añade al carrito
-						elCarrito.add(nuevoElementoPedido);
-					}
+					// Volvemos a order.jps para seguir con la compra
+					nextPage = "/orderpra.jsp";
 				}
-				// Volvemos a order.jps para seguir con la compra
-				nextPage = "/orderpra.jsp";
+				else 
+				{
+					throw new ServletException("ERROR: no hay suficientes libros en nuestros stock.");
+				}
 			}
+
 			else if(todo.equals("remove"))
 			{
 				// Enviado por order.jsp con el parámetro indiceElementoDespliegue
@@ -137,7 +156,7 @@ public class Controlador extends HttpServlet {
 					// Coloca el precioTotal y la cantidad total en el request
 					request.setAttribute("precioTotal", sb.toString());
 					request.setAttribute("cantidadTotal", cantidadTotalOrdenada+"");
-					
+
 					// Redirige a checkout.jsp
 					nextPage = "/checkoutpra.jsp";
 				}

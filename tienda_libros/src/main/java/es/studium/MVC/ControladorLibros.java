@@ -14,10 +14,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/ControladorLibros")
 public class ControladorLibros extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public ControladorLibros() {
         super();
   
@@ -28,7 +25,6 @@ public class ControladorLibros extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
 		String todo = request.getParameter("todo");
-		
 		if(todo.equals("alta")) {
 			// datos del formulario
 			String tituloLibro = request.getParameter("tituloLibro");
@@ -61,5 +57,16 @@ public class ControladorLibros extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+ public void mostrarLibros() {
+	 try
+	{
+		Modelo.Conectar();
+	} catch (ServletException e)
+	{
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 String sql = "SELECT * FROM libros;";
+	 
+ }
 }

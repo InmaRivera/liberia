@@ -1,6 +1,7 @@
 package es.studium.MVC;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,69 +36,120 @@ public class ControladorPedido extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
-		//		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
-
+		String nextPage = "";
 		request.setCharacterEncoding("UTF-8");
+		// Recupera la sesión actual o crea una nueva si no existe
 		HttpSession session = request.getSession(true);
-		String todo = request.getParameter("todo");
-		int idCliente = 0;
-		String username = (String) session.getAttribute("usuario");
-		if(username!=null) {
+		String usuario = (String)session.getAttribute("usuario");
 
-			idCliente = (int) session.getAttribute("tipoUsuario");
-			Pedidos pedido = new Pedidos();
-			int idClienteFK = pedido.getIdClienteFK();
-			Date fechaPedido = pedido.getFechaPedido();
-			Date fechaEnviado = pedido.getFechaEnviado();
+		String todo = request.getParameter("todo");
+		int idUsuario =	0;
+
+		System.out.println(usuario);
+		if(usuario==null) {
+			idUsuario = (int) session.getAttribute("idUsuario");
+
+
+			usuario = (String) session.getAttribute("tipoUsuario");
+			//			String idCliente = request.getParameter("usuario");
+			int idPedidoFK = 0;
+			int cantidad = 0;
+			int idLibro = 0;
+
 			String resultado = "";
-			//		boolean enviado = pedido.isEnviado();
-			String nextPage = "";
+			//			boolean enviado = pedido.isEnviado();
 
 			//insertar nuevo pedido
-			if(todo.equals("checkout")) {
+			if(todo.equals("add")) {
 				@SuppressWarnings("unchecked")
-				ArrayList<LibroPedido> cesta = (ArrayList<LibroPedido>)
-				session.getAttribute("carrito");
+				ArrayList<LibroPedido> cesta = (ArrayList<LibroPedido>)session.getAttribute("carrito");
+				Double random = ((Math.random()*8999999)+1000000);
+				int idPedido = random.intValue();
+
 				//comprobar que la cesta no está vacía y añadir el pedido
 				if (cesta != null && cesta.size()>0) {
-					try
-					{
-						//Crear una sentencia
-						Modelo.conn.prepareStatement(todo);
-						//insertamos pedido
-						String sql ="INSERT INTO pedidos VALUES('null', '"+fechaPedido+"', '"+fechaEnviado+"', idClienteFK = '"+idCliente+"');";
-						System.out.println(sql);
-						//y ejecutar la sentencia SQL
-						if((Modelo.statement.executeUpdate(sql))==1)
-						{
-							resultado = "<p>Error al hacer pedido<p>";
-						}
-						else
-						{
-							resultado = "<p>Pedido realizado correctamente<p>";
-						}
+					int restar = 0; // para comprobar stock
+					for (int i = 0; i < cesta.size(); i++) {
 
-					} catch (SQLException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						if(restar!=0) 
+						{
+							// CREAR PEDIDO
+
+
+							int error = crearPedido(idPedido, idUsuario);
+							if(error == 1) 
+							{
+								resultado += "<span class='text-success'>Pedido creado correctamente.</span></br>";
+							}
+
+						} 
+						else 
+						{
+							resultado += "<span class='text-danger'>No se pudo realizar el pedido, los libros están agotados.</span></br>";
+						}
+						// BORRAR CARRITO
+						session.removeAttribute("carrito");
+						nextPage = "/checkoutpra.jsp";
 					}
+
 				}
 			}
-			ServletContext servletContext = getServletContext();
-			RequestDispatcher requestDispatcher =
-					servletContext.getRequestDispatcher(nextPage);
-			requestDispatcher.forward(request, response);
 		}
+		ServletContext servletContext = getServletContext();
+		RequestDispatcher requestDispatcher =
+				servletContext.getRequestDispatcher(nextPage);
+		requestDispatcher.forward(request, response);
+	}
+
+
+	@SuppressWarnings("unused")
+	public void selectPedidos() throws SQLException{
+		String sql ="SELECT * FROM pedidos;";
+		System.out.println(sql);
+		try
+		{
+			Modelo.Conectar();
+			ResultSet rs = Modelo.statement.executeQuery(sql);
+			//			return Modelo.statement.executeQuery(sql);
+
+		} catch (ServletException e)
+		{
+
+			e.printStackTrace();
+		}
+
+
+	}
+	private int crearPedido(int idPedido, int usuario) {
+		Pedidos pedido = new Pedidos();
+		pedido.getIdPedido();
+		//			int idClienteFK = pedido.getIdClienteFK();
+		Date fechaPedido = pedido.getFechaPedido();
+		Date fechaEnviado = pedido.getFechaEnviado();
+
+		String sql = "INSERT INTO pedidos VALUES('"+ pedido.getIdPedido()+ "', 'NOW()','"+fechaEnviado+"', 'NULL',0)";
+		System.out.println(sql);
+
+		try {
+
+			Modelo.Conectar();			
+			return Modelo.statement.executeUpdate(sql);
+
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
-
 

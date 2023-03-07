@@ -4,10 +4,16 @@ public class Editoriales
 {
 	private int idEditorial;
 	private String nombreEditorial;
-	public Editoriales()
-	{
+	//constructor vacío
+	public Editoriales(){
 		idEditorial = 0;
-		nombreEditorial ="";
+		nombreEditorial = "";
+	}
+//	constructor por parámetros para mostrar en el select
+	public Editoriales(int idEditorial, String nombreEditorial)
+	{
+		this.idEditorial = idEditorial;
+		this.nombreEditorial = nombreEditorial;
 
 	}
 	public int getIdEditorial()
