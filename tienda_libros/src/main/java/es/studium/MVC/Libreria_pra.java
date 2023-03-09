@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Libreria_pra 
 {
 	// Pool de conexiones a la base de datos
+
 	String libroSeleccionado ="";
 	Connection conn = null;
 	Statement statement = null;
@@ -19,32 +20,25 @@ public class Libreria_pra
 		super();
 	}
 
-
 	public void cargarDatos()
 	{
-		// Creamos objetos para la conexión
-//		Connection conn = null;
-//		Statement stmt = null;
+		tabla.clear();
 		try
 		{
-
 			//Paso 3: Crear las sentencias SQL utilizando objetos de la clase Statement
 			Modelo.Conectar();
-
 			//Paso 4: Ejecutar las sentencias
-			String sql = "SELECT libros.*, autores.nombreAutor FROM libros INNER JOIN autores ON libros.idAutorFK = idAutor;";
+//			String sql = "SELECT libros.*, autores.nombreAutor FROM libros INNER JOIN autores ON libros.idAutorFK = idAutor;";
+			String sql = "SELECT idLibro, tituloLibro, cantidadLibro, precioLibro, idEditorialFK, idAutorFK, autor.nombreAutor, editorial.nombreEditorial FROM libros JOIN autores AS autor ON idAutorFK = autor.idAutor JOIN editoriales AS editorial ON idEditorialFK = editorial.idEditorial ORDER BY idLibro;";
 			ResultSet rs = Modelo.statement.executeQuery(sql);
-
 			LibroPra libro;
 			while(rs.next())
 			{
 				libro = new LibroPra(rs.getInt("idLibro"),rs.getString("tituloLibro"), rs.getString("nombreAutor"), rs.getInt("cantidadLibro"),rs.getDouble("precioLibro"));
 				tabla.add(libro);
-//				libroSeleccionado += "<option value='idLibro'>" + rs.getInt("idLibro") +"-"+ rs.getString("tituloLibro") + " " +
-//						rs.getInt("cantidadLibro") + " " + rs.getDouble("precioLibro") + "</option>";
-				//				System.out.println(libroSeleccionado);
-
+				
 			} 
+			
 		}
 		catch(Exception ex)
 		{
@@ -59,21 +53,19 @@ public class Libreria_pra
 				{
 					Modelo.statement.close();
 				}
-//				if(conn != null)
-//				{
-//					conn.close();
-//				}
+				if(conn != null)
+				{
+					conn.close();
+				}
 			}
 			catch(Exception ex)
 			{
 				ex.printStackTrace();
 			}
 		}
-
-
-
 	}
-
+	
+	
 	/**
 	 * Devuelve el número de libros obtenidos
 	 */
@@ -91,6 +83,13 @@ public class Libreria_pra
 	public static int getId(int i)
 	{
 		return tabla.get(i).getIdLibro();
+	}
+	/**
+	 * Devuelve la editorial del libro identificado con idLibro
+	 */
+	public static String getNombreEditorial(int idLibro)
+	{
+		return tabla.get(idLibro).getEditorial();
 	}
 	/**
 	 * Devuelve el autor del libro identificado con idLibro

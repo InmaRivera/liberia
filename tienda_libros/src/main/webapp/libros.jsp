@@ -53,36 +53,60 @@ h1, p {
 
 <body>
 	<h1>Libros</h1>
+	<h3>Listado libros disponibles</h3>
 	<!-- Example Code -->
 	<section>
 		<div class="list-group text-center">
-			<table class="table table-dark table-hover">
-				<%
+			<form name="AgregarForm" action="shopping" method="POST">
+				<input type="hidden" name="todo" value="add">
+				<table class="table table-dark table-hover">
+				<tr>
+
+						<th>ID</th>
+						<th>Título Libro</th>
+						<th>Autor</th>
+						<th>Editorial</th>
+						<th>Stock</th>
+					</tr>
+					<%
 				Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
-				libreria.cargarDatos();//cargamos los datos de libreria
+				libreria.cargarDatos();//cargamos los datos de libreria 
+				/* ControladorLibros.cargarLibros(); */
 				LibroPra libro = new LibroPra();//OBJETO LIBROS
-				libro.toString();
-				ControladorLibros mostrarLibros = new ControladorLibros();
-				mostrarLibros.mostrarLibros();
+		/* 		ControladorLibros mostrarLibros = new ControladorLibros(); 
+				mostrarLibros.cargarLibros(); */
+				for (int i = 0; i < libreria.tamano(); i++) 
+				{
+					 %> 
+					<td><%=libreria.getId(i)%></td>
+					<td><%=libreria.getTitulo(i) %></td>
+					<td><%=libreria.getAutor(i) %></td>
+					<td><%=libreria.getNombreEditorial(i) %></td>
+					<td><%=libreria.getStock(i) %></td>
+					<%--  	<td><%=libro.getTituloLi(); %></td> --%>
+					</tr>
+
+					<%-- 		<%
+				out.println("<tr>");
+				
+				out.println("<td>'"+libro.getIdLibro()+"'</td>");
+				out.println("<td>'"+libro.getTituloLi()+"'</td>");
+				out.println("<td>'"+libro.getAutor()+"'</td>");
+				out.println("<td>'"+libro.getIdEditorialFK()+"'</td>");
+				out.println("<td>'"+libro.getCantidadLi()+"'</td>");
+					
+				out.println("</tr>");
+				 %> --%>
+					<%
+				}
 				%>
-				<tr>
-					<th>Libros disponibles</th>
-					<th>Autor</th>
-					<th>Editorial</th>
-					<th>Stock</th>
-				</tr>
-				<tr>
-					<td><%libro.getTituloLi(); %></td>
-					<td><%libro.getAutor(); %></td>
-					<td><%libro.getIdEditorialFK(); %></td>
-					<td><%libro.getCantidadLi(); %></td>
-					<!-- 	<td><input class="btn btn-outline-light" type="submit"
+				</table>
+			</form>
+			<!-- 	<td><input class="btn btn-outline-light" type="submit"
 							value="Cambiar estado pedido"></td> -->
-				</tr>
-			</table>
-		
-			<a href="ControladorLibros" class="list-group-item list-group-item-action fondo">Alta
-				libros</a> <a href="#"
+			<a href="AltaLibro.jsp"
+				class="list-group-item list-group-item-action fondo">Alta libros</a>
+			<a href="ModificacionLibro.jsp"
 				class="list-group-item list-group-item-action fondo ">Modificar
 				libro</a>
 			<!--    <a href="#" class="list-group-item list-group-item-action fondo">MOSTRAR EDITORIAL</a>

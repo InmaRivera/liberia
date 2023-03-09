@@ -83,18 +83,21 @@ section {
 		<!-- formulario-->
 		<div class=" justify-content-center text-center">
 			<form name="AgregarForm" action="shopping" method="POST">
-				<input type="hidden" name="todo" value="add"> <select
-					name="idLibro" class="form-select"
+				<input type="hidden" name="todo" value="add">
+				<select name="idLibro" class="form-select"
 					aria-label="Default select example">
+
 					<%
 					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 					libreria.cargarDatos();//cargamos los datos de libreria
-					/* LibroPra libro = new LibroPra();//OBJETO LIBROS  */
-
+					LibroPra libro = new LibroPra();//OBJETO LIBROS 
+					System.out.println("tamaño libreria : "+Libreria_pra.tamano());
 					for (int i = 0; i < Libreria_pra.tamano(); i++)
 					{
-						out.println("<option class='text-center' value='" + libreria.getId(i) + "'>");
-						out.println(libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " " + libreria.getPrecio(i) + " €");
+						/* out.println("<option class='text-center' value='" + libreria.getId(i) + "'>"); */
+						out.println("<option class='text-center' value='" + i + "'>");
+						out.println(libreria.getId(i) + " " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " "
+						+ libreria.getPrecio(i) + " €");
 						out.println("</option>");
 					}
 					%>
@@ -103,27 +106,31 @@ section {
 				<div class="input-group">
 					<span class="input-group-text">Indique la cantidad:</span> <input
 						type="text" class="form-control" type="text" name="cantidad"
-						size="10" value="1"> <br>
-			
-					<div class="col-12 pt-5">
-						<button class="btn btn-outline-dark boton" type="submit"
-							value="Añadir a la cesta">Añadir a la cesta</button>
-					</div>
+						size="10" value="1"> 
 				</div>
+				<br>
+				<br>
+				<input type="submit" value="Añadir a la cesta" class="btn btn-outline-dark boton">
+			<!-- 	<div class="col-12 pt-5">
+					 <button class="btn btn-outline-dark boton" type="submit"
+							value="Añadir a la cesta">Añadir a la cesta</button> 
+				</div> -->
+
 			</form>
+			<hr />
 			<br />
 			<%
 			// Scriplet 2: Chequea el contenido de la cesta 
 			ArrayList<LibroPedido> cesta = (ArrayList<LibroPedido>) session.getAttribute("carrito");
 			if (cesta != null && cesta.size() > 0)
 			{
+
 			%>
 			<p>
 				<strong>Tu cesta contiene:</strong>
 			</p>
 			<table class="table table-dark table-hover">
 				<tr>
-				<th>ID</th>
 					<th>Título</th>
 					<th>Autor</th>
 					<th>Cantidad</th>
@@ -131,22 +138,23 @@ section {
 					<th>&nbsp;</th>
 				</tr>
 				<%
-				// Scriplet 3: Muestra los libros del carrito
-				for (int i = 1; i < cesta.size(); i++)
-				{
+				// Scriplet 3: Muestra los libros del carrito 
+
+				for (int i = 0; i < cesta.size();i++)
+				{					
 					LibroPedido elementoPedido = cesta.get(i);
-					out.println("elemento pedido resul: " + elementoPedido);
+
 				%>
 				<tr>
 					<form name="borrarForm" action="shopping" method="POST">
 						<input type="hidden" name="todo" value="remove"> <input
 							type="hidden" name="indiceElemento" value="<%=i%>">
-						<td align="center"><%=elementoPedido.getIdLibro()%></td>
 						<td align="center"><%=elementoPedido.getTitulo()%></td>
 						<td lign="center"><%=elementoPedido.getAutor()%></td>
 						<td align="center"><%=elementoPedido.getCantidad()%></td>
 						<td align="center"><%=elementoPedido.getPrecio()%> €</td>
-						<td><input class="btn btn-outline-light" type="submit"
+							<!-- <td><input type="submit" value="Eliminar de la cesta" class="btn btn-outline-light"></td> -->
+						 <td><input class="btn btn-outline-light" type="submit"
 							value="Eliminar de la cesta"></td>
 					</form>
 				</tr>
@@ -155,7 +163,7 @@ section {
 				%>
 			</table>
 			<br />
-			<form name="checkoutForm" action="ControladorPedido" method="POST">
+			<form name="checkoutForm" action="shopping" method="POST">
 				<input type="hidden" name="todo" value="checkout">
 				<button class="btn btn-outline-dark boton" type="submit"
 					value="Confirmar compra">Confirmar compra</button>

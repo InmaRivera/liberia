@@ -170,6 +170,10 @@ public class Controlador extends HttpServlet {
 			{
 				nextPage = "/principal.jsp";
 			}
+			else if (todo.equals("volverLibros"))
+			{
+				nextPage = "/libros.jsp";
+			}
 			//para salir de la app
 			else if (todo.equals("logout"))
 			{

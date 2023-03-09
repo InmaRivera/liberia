@@ -7,16 +7,30 @@ public class LibroPra
 	private int cantidadLi;
 	private double precioLi;
 	private String autor;
-//	private Autores idAutorFK = new Autores(idLibro, autor);
-//	private Editoriales idEditorialFK = new Editoriales(idLibro, autor);
-//	
-	public LibroPra() {
-		this.idLibro = 0;
-		this.tituloLi = "";
-		this.cantidadLi = 0;
-		this.precioLi = 0;
-		this.autor = "";
+	private String editorial;
+	private Autores idAutorFK = new Autores(idLibro, autor);
+	private Editoriales idEditorialFK = new Editoriales(idLibro, autor);
+//	Constructor vacío
 	
+	public LibroPra() {
+		idLibro=0;
+		tituloLi ="";
+		cantidadLi = 0;
+		precioLi = 0;
+		autor = "";
+		editorial = "";
+//		idAutorFK = 0;
+		
+	}
+	//constructor por parámetros
+	public LibroPra(int idLibro, String titulo, int cantidad, double precio, String autor, int idAutorFK, String editorial, int idEditorialFK) {
+		this.idLibro = idLibro;
+		this.tituloLi = titulo;
+		this.cantidadLi =cantidad;
+		this.precioLi = precio;
+		this.autor = autor;
+		this.editorial = editorial;
+
 	}
 	//Crear parámetros
 	public LibroPra(int idLibro, String tituloLi, String autor, int cantidadLi, double precioLi)
@@ -68,22 +82,29 @@ public class LibroPra
 	{
 		this.autor = autor;
 	}
-
-//	public Autores getIdAutorFK()
-//	{
-//		return idAutorFK;
-//	}
-//	public void setIdAutorFK(Autores idAutorFK)
-//	{
-//		this.idAutorFK = idAutorFK;
-//	}
-//	public Editoriales getIdEditorialFK()
-//	{
-//		return idEditorialFK;
-//	}
-//	public void setIdEditorialFK(Editoriales idEditorialFK)
-//	{
-//		this.idEditorialFK = idEditorialFK;
-//	}
-
+	public String getEditorial()
+	{
+		return editorial;
+	}
+	public void setEditorial(String editorial)
+	{
+		this.editorial = editorial;
+	}
+	public Autores getIdAutorFK()
+	{
+		return idAutorFK;
+	}
+	public void setIdAutorFK(Autores idAutorFK)
+	{
+		this.idAutorFK = idAutorFK;
+	}
+	public Editoriales getIdEditorialFK()
+	{
+		return idEditorialFK;
+	}
+	public void setIdEditorialFK(Editoriales idEditorialFK)
+	{
+		this.idEditorialFK = idEditorialFK;
+	}
+	
 }

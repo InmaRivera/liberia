@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" import="java.util.*, es.studium.MVC.*"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,6 +10,11 @@
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
     <title>Autores</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <%		String usuario = (String) session.getAttribute("usuario");
+	if(usuario==null){  
+		response.sendRedirect("./index.jsp");
+	}
+	%>
 </head>
 <style>
     .fondo:hover {
@@ -51,11 +57,25 @@
     <div class="list-group text-center">
         <table class="table table-dark table-hover">
             <tr>
+            	<th>ID</th>
                 <th>Nombre Autor</th>
             </tr>
+            
+			<%
+			ArrayList<Autores> listadoAutor = ControladorAutor.getAutor();
+			for (int i = 0; i < listadoAutor.size(); i++)
+			{
+				Autores autor = listadoAutor.get(i);
+		/* 	out.println(autor);  */
+				
+			%>
             <tr>
-                <td>Code</td>
+            <td><%=autor.getIdAutor() %></td>
+             <td><%=autor.getAutor() %></td>
             </tr>
+            <%
+				}
+				%>
         </table>
         	<form name="checkout" action="shopping" method="POST">
 				<button name="todo" value="volver" class="btn btn-dark boton">Volver</button>
