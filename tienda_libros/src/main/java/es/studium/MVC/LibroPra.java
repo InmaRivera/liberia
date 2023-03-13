@@ -11,7 +11,6 @@ public class LibroPra
 	private Autores idAutorFK = new Autores(idLibro, autor);
 	private Editoriales idEditorialFK = new Editoriales(idLibro, autor);
 //	Constructor vacío
-	
 	public LibroPra() {
 		idLibro=0;
 		tituloLi ="";
@@ -19,19 +18,19 @@ public class LibroPra
 		precioLi = 0;
 		autor = "";
 		editorial = "";
-//		idAutorFK = 0;
+//		idAutorFK = 0;	
+	}
 		
-	}
 	//constructor por parámetros
-	public LibroPra(int idLibro, String titulo, int cantidad, double precio, String autor, int idAutorFK, String editorial, int idEditorialFK) {
-		this.idLibro = idLibro;
-		this.tituloLi = titulo;
-		this.cantidadLi =cantidad;
-		this.precioLi = precio;
-		this.autor = autor;
-		this.editorial = editorial;
-
-	}
+//	public LibroPra(int idLibro, String titulo, int cantidad, double precio, String autor, int idAutorFK, String editorial, int idEditorialFK) {
+//		this.idLibro = idLibro;
+//		this.tituloLi = titulo;
+//		this.cantidadLi =cantidad;
+//		this.precioLi = precio;
+//		this.autor = autor;
+//		this.editorial = editorial;
+//
+//	}
 	//Crear parámetros
 	public LibroPra(int idLibro, String tituloLi, String autor, int cantidadLi, double precioLi)
 	{

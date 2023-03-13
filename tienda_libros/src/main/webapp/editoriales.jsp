@@ -26,7 +26,7 @@
 	color: #000;
 }
 
-a {
+/* a {
 	opacity: 0.5;
 }
 
@@ -35,7 +35,7 @@ a:hover {
 	font-size: larger;
 	font-weight: 200;
 }
-
+ */
 body {
 	background-image:
 		url("https://album.mediaset.es/eimg/2020/04/01/Fagw0vREqPnTbfcRoKSHm6.jpg?w=480");
@@ -57,6 +57,26 @@ h1, p {
 </style>
 
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid ">
+    <a class="navbar-brand letra text-center" href="orderpra.jsp">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+    
+        <li class="nav-item ">
+          <a class="nav-link letra" href="logout.jsp">
+		<button name="todo" value="logout" class="btn btn-danger boton p1">Cerrar Sesión  <i class="bi bi-power"></i></button></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
+<br>
 	<h1>Editoriales</h1>
 	<!-- Example Code -->
 	<section>

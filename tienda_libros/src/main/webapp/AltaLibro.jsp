@@ -15,10 +15,13 @@
 <title>Alta Libros</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<% String usuario=(String) session.getAttribute("usuario"); int tipoUsuario=1; %>
+<%
+String usuario = (String) session.getAttribute("usuario");
+int tipoUsuario = 1;
+%>
 </head>
 <style>
-a {
+.trans {
 	opacity: 0.7;
 	color: #fff;
 }
@@ -29,7 +32,7 @@ a {
 	padding-right: 4%;
 }
 
-a:hover {
+.trans:hover {
 	opacity: 0.9;
 	font-size: larger;
 	font-weight: 200;
@@ -50,7 +53,7 @@ label {
 	color: #fff;
 }
 
-h1, p {
+h1, h3, p {
 	font-family: 'Pacifico', cursive;
 	font-family: 'Shantell Sans', cursive;
 	color: #000;
@@ -63,52 +66,112 @@ h1, p {
 }
 </style>
 
-<body>
+<body class="bg-dark">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+		<div class="container-fluid ">
+			<a class="navbar-brand letra text-center" href="principal.jsp">Inicio</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-flex justify-content-end"
+				id="navbarNav">
+				<ul class="navbar-nav">
+
+					<li class="nav-item "><a class="nav-link letra"
+						href="logout.jsp">
+							<button name="todo" value="logout"
+								class="btn btn-danger boton p1">
+								Cerrar Sesión <i class="bi bi-power"></i>
+							</button>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<br>
 	<h1>Registrar libro</h1>
+	<p>
+		<%
+		String msg = (String) session.getAttribute("response");
+		if (msg != null)
+		{
+			out.println(msg);
+			session.removeAttribute("response");
+		}
+		%>
+	</p>
 	<br>
 	<!-- Example Code -->
-	<section class="">
+	<section>
 		<div class="list-group bg-dark fondo">
 			<div class="mb-3 centrar">
 				<form name="AgregarForm" action="shopping" method="POST">
-					<input type="hidden" name="todo" value="add">
+					<input type="hidden" name="todo" value="Nuevo">
 					<div class="mb-3">
-						<label for="formGroupExampleInput" class="form-label">Nombre
-							Libro</label> <input type="text" class="form-control"
-							id="formGroupExampleInput" placeholder="Nombre Libro">
+						<%
+						Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
+						libreria.cargarDatos();//cargamos los datos de libreria
+						ArrayList<Editoriales> listadoEditorial = new ArrayList<Editoriales>();
+						ArrayList<Autores> listadoAutor = new ArrayList<Autores>();
+						String tituloLibro = "";
+						double precio = 0;
+						int cantidad = 0;
+						String Editorial = "";
+						String Autor = "";
+						/* libreria.insertarLibro(tituloLibro, precio, cantidad);
+						libreria.insertarEditorial(Editorial);
+						libreria.insertarAutor(Autor); */
+
+						LibroPra libro = new LibroPra();//OBJETO LIBROS 
+						ArrayList<LibroPra> listalibros = (ArrayList<LibroPra>) session.getAttribute("Nuevo");
+						%>
+						<label for="Libro" class="form-label">Nombre Libro</label> <input
+							type="text" class="form-control" id="Libro"
+							value="<%=libro.getTituloLi()%>" placeholder="Nombre Libro">
 					</div>
 					<div class="mb-3">
-						<label for="formGroupExampleInput2" class="form-label">Nombre
-							Autor</label> <input type="text" class="form-control"
-							id="formGroupExampleInput2" placeholder="Nombre Autor">
+						<label for="Autor" class="form-label">Nombre Autor</label> <input
+							type="text" class="form-control" id="Autor"
+							value="<%=libro.getAutor()%>" placeholder="Nombre Autor">
 					</div>
 					<div class="mb-3">
-						<label for="formGroupExampleInput2" class="form-label">Nombre
-							Editorial</label> <input type="text" class="form-control"
-							id="formGroupExampleInput2" placeholder="Nombre Editorial">
+						<label for="Editorial" class="form-label">Nombre Editorial</label>
+						<input type="text" class="form-control" id="Editorial"
+							value="<%=libro.getEditorial()%>" placeholder="Nombre Editorial">
 					</div>
 					<div class="mb-3">
-						<label for="formGroupExampleInput2" class="form-label">Cantidad
-							Libro</label> <input type="text" class="form-control"
-							id="formGroupExampleInput2" placeholder="Cantidad Stock">
+						<label for="Cantidad" class="form-label">Cantidad Libro</label> <input
+							type="text" class="form-control" id="Cantidad"
+							value="<%=libro.getCantidadLi()%>" placeholder="Cantidad Stock">
 					</div>
 					<div class="mb-3">
-						<label for="formGroupExampleInput2" class="form-label">Precio</label>
-						<input type="text" class="form-control"
-							id="formGroupExampleInput2" placeholder="Precio">
+						<label for="Precio" class="form-label">Precio</label> <input
+							type="text" class="form-control" id="Precio"
+							value="<%=libro.getCantidadLi()%>" placeholder="Precio">
 					</div>
 				</form>
+
 			</div>
 			<div class="text-center">
-				<form class="" name="checkout" action="shopping" method="POST">
-					<button name="todo" value="Confirmar" class="btn btn-success boton">Confirmar</button>
+				<form name="AltaLibro" action="shopping" method="POST">
+					<%
+					ArrayList<LibroPra> confirmar = (ArrayList<LibroPra>) session.getAttribute("Confirmar");
+					%>
+					<a type="submit" name="todo" value="Confirmar"
+						class="btn btn-success boton">Confirmar</a>
+
 
 					<form name="checkout" action="shopping" method="POST">
-						<button name="todo" value="volverLibros" class="btn btn-danger boton">Volver</button>
+						<button name="todo" value="volverLibros"
+							class="btn btn-danger boton">Volver</button>
 					</form>
 				</form>
 			</div>
 			<br>
+		</div>
 	</section>
 	<br>
 	<!-- End Example Code -->

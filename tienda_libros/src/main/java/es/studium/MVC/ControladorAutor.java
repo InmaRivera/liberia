@@ -17,7 +17,7 @@ public class ControladorAutor
 		try {
 
 			// Paso 4: Ejecutar las sentencias
-			String sql = "SELECT * FROM autores;";
+			String sql = "SELECT * FROM autores  ORDER BY nombreAutor;;";
 			ResultSet rs = Modelo.statement.executeQuery(sql);
 			Autores autor;
 			while(rs.next())

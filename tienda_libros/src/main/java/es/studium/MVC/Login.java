@@ -83,13 +83,16 @@ public class Login extends HttpServlet {
 			{
 				//si no introduce el nombre
 				session.setAttribute("usuario", usuario);
-				nextPage = "/index1.jsp";
+				//Respuesta
+				request.setAttribute("response","<h3 class='text-center mb-4 text-danger'>Error! Debes introducir su usuario</h3>");
+				nextPage = "/index.jsp";
 			}
 			else if(password.length()==0)
 			{
 				//si no introducen contraseña
 				session.setAttribute("usuario", usuario);
-				nextPage = "/index2.jsp";
+				request.setAttribute("response","<h3 class='text-center mb-4 text-danger'>Error! Debes introducir su contraseña</h3>");
+				nextPage = "/index.jsp";
 			}
 
 			else 
@@ -104,9 +107,10 @@ public class Login extends HttpServlet {
 
 				if(!rset.next())
 				{
+					//En caso de que no introduzca bien contraseña o usuario
 					session.setAttribute("usuario", usuario);
-
-					nextPage = "/index3.jsp";
+					request.setAttribute("response","<h3 class='text-center mb-4 text-danger'>Error! Usuario o contraseña incorrectos</h3>");
+					nextPage = "/index.jsp";
 				}
 				else
 				{

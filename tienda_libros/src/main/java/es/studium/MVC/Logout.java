@@ -25,7 +25,7 @@ public class Logout extends HttpServlet {
 		
 		try {
 			//lo mandamos al login
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect(request.getContextPath() + "/login.jsp");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

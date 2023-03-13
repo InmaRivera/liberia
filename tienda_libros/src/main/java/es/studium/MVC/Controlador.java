@@ -2,8 +2,9 @@ package es.studium.MVC;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
 
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import es.studium.MVC.LibroPra;
 /**
  * Servlet implementation class Controlador
  */
@@ -25,6 +25,8 @@ import es.studium.MVC.LibroPra;
 @WebServlet("/shopping")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ServletContext servletContext = null;
+	RequestDispatcher requestDispatcher = null;
 	public void init(ServletConfig conf) throws ServletException
 	{
 		super.init(conf);
@@ -104,8 +106,8 @@ public class Controlador extends HttpServlet {
 								}
 								else
 								{
-															
-									throw new ServletException("ERROR: no hay suficientes libros en nuestros stock.");
+									request.setAttribute("response", "<h3 class='text-danger text-center'>ERROR: no hay suficientes libros en nuestros stock.</h3>");
+									throw new ServletException("response");
 
 								}
 							}
@@ -121,8 +123,12 @@ public class Controlador extends HttpServlet {
 				}
 				else 
 				{
-					throw new ServletException("ERROR: no hay suficientes libros en nuestros stock.");
+					
+					request.setAttribute("response", "<h3 class='text-danger'>'ERROR: no hay suficientes libros en nuestros stock.'</h3>");
+					//					mensaje = "	throw new ServletException(\"alertify.success('ERROR: no hay suficientes libros en nuestros stock.');\");";
+					//					throw new ServletException("alertify.success('ERROR: no hay suficientes libros en nuestros stock.');");
 				}
+				nextPage="/orderpra.jsp";
 			}
 
 			else if(todo.equals("remove"))
@@ -156,16 +162,138 @@ public class Controlador extends HttpServlet {
 					// Coloca el precioTotal y la cantidad total en el request
 					request.setAttribute("precioTotal", sb.toString());
 					request.setAttribute("cantidadTotal", cantidadTotalOrdenada+"");
-
+ //Obtenemos el usuario de la sesión
+					 usuario = (String) session.getAttribute("usuario");
+					System.out.println(usuario);
+					
+					//obtenemos la fecha 
+					LocalDate fecha = LocalDate.now();
+					DateTimeFormatter formato =  DateTimeFormatter.ofPattern("dd MM yy");
+					String texto = fecha.format(formato);
+					LocalDate parseDate = LocalDate.parse(texto,formato);
+					
+					//llamamos a la clase 
+					
+					Libreria_pra insertarPedido = new Libreria_pra();
+					try
+					{
+						insertarPedido.insertarPedidos(usuario, fecha);
+					} catch (ServletException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//Respuesta
+					request.setAttribute("response","Este usuario no está disponible");
+					
 					// Redirige a checkout.jsp
 					nextPage = "/checkoutpra.jsp";
 				}
 			}
-			// seguir comprando
-			else if (todo.equals("otro"))
-			{
-				nextPage = "/orderpra.jsp";
+			//Alta libro 
+			else if (todo.equals("Nuevo")) {
+				Libreria_pra libros = new Libreria_pra();
+				String tituloLibro = request.getParameter("Nombre");
+				double precioLibro = Double.parseDouble(request.getParameter("Precio"));
+				String autor = request.getParameter("Autores");
+				String editorial = request.getParameter("Editoriales");
+				int cantidad = Integer.parseInt(request.getParameter("Cantidad"));
+				if (tituloLibro != "" && precioLibro != 0.0) {
+					try
+					{
+						//insertar libro nuevo
+						libros.insertarLibro(tituloLibro, precioLibro, cantidad);
+
+					} catch (SQLException e)
+					{
+
+						e.printStackTrace();
+					}
+					try
+					{//insertar autor
+						libros.insertarAutor(autor);
+					} catch (SQLException e)
+					{
+
+						e.printStackTrace();
+					}
+					try
+					{//insertar editorial
+						libros.insertarEditorial(editorial);
+					} catch (SQLException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					nextPage = "/AltaLibro.jsp";
+				}
+
+				else if (todo.equals("Confirmar"))
+				{
+					
+					int error = -1;
+					if(error==1) {
+						request.setAttribute("response", "<h3 class='text-success'>Libro '" + tituloLibro + "' creado correctamente.</h3>");
+					} else {
+						request.setAttribute("response", "<h3 class='text-danger'>Error al crear el libro.</h3>");
+					}
+					nextPage = "libros.jsp";
+				}
 			}
+			//modificar
+			else if (todo.equals("Editar"))
+			{
+				Libreria_pra libros = new Libreria_pra();
+				String tituloLibro = request.getParameter("titulo");
+				double precioLibro = Double.parseDouble(request.getParameter("precio"));
+				String autor = request.getParameter("autores");
+				String editorial = request.getParameter("editoriales");
+				int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+				int id = Integer.parseInt(request.getParameter("idLibro"));
+				if (tituloLibro != "" && precioLibro != 0.0) {
+					//insertar libro nuevo
+					libros.modificarLibro(id, tituloLibro, cantidad, precioLibro, cantidad, id);
+					nextPage = "/libros.jsp";
+				}
+				int error = -1;
+				if(error==1) {
+					request.setAttribute("response", "El Libro: '" + tituloLibro + "' se ha modificado correctamente.");
+				} else {
+					request.setAttribute("response", "Error al modificar el libro.");
+				}
+				nextPage = "libros.jsp";
+			}
+			//eliminar un libro
+			else if (todo.equals("borrar"))
+			{
+				Libreria_pra libros = new Libreria_pra();
+				int borrarLibro = Integer.parseInt(request.getParameter("borrar"));
+				//				Libreria_pra libros = new Libreria_pra();
+				libros.borrar(-1);
+				//				{
+				//				int listadoLibro = Integer.parseInt(request.getParameter("borrar"));
+				////				remove(listadoLibro);
+				//				
+				//				}
+				int borrar = -1;
+				String respuesta ="";
+				if(borrar == 0)
+				{
+					respuesta = "No se ha podido elimnar el libro";
+
+				}
+				else if (borrar == 1) 
+				{
+					respuesta = "Se ha eliminado correctamente";
+				}
+				nextPage = "/libros.jsp";
+			}
+
+
 			else if (todo.equals("volver"))
 			{
 				nextPage = "/principal.jsp";
@@ -177,8 +305,10 @@ public class Controlador extends HttpServlet {
 			//para salir de la app
 			else if (todo.equals("logout"))
 			{
-				nextPage = "/index.jsp";
+				nextPage = "/logout.jsp";
 			}
+
+
 			ServletContext servletContext = getServletContext();
 			RequestDispatcher requestDispatcher =
 					servletContext.getRequestDispatcher(nextPage);
@@ -186,5 +316,4 @@ public class Controlador extends HttpServlet {
 		}
 	}
 }
-
 

@@ -32,4 +32,5 @@ public class Editoriales
 	{
 		this.nombreEditorial = nombreEditorial;
 	}
+
 }

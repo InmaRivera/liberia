@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ page session="true" import="java.util.*, es.studium.MVC.*"%>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Log In</title>
+<title>Log Out</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,13 +18,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
 	crossorigin="anonymous"></script>
-<%-- 	<%
-String usuario = (String) session.getAttribute("usuario");
-if (usuario == null)
-{
-	response.sendRedirect("./index.jsp");
-}
-%> --%>
 </head>
 <style>
 .fondo {
@@ -39,17 +32,14 @@ if (usuario == null)
 </style>
 
 <body>
-	<%
-			String mensaje = (String) request.getAttribute("response");
-			if(mensaje != null){
-				out.println(mensaje);
-				request.removeAttribute("response");
-			}
-		%> 
+<h3 class="text-center mb-4 text-primary pt-3">Has cerrado sesión
+		correctamente</h3>
+	
 	<div class="vh-100 d-flex justify-content-center align-items-center">
+	
 		<div class="col-md-4 p-5 shadow border-1 rounded-3 fondo">
 			<h2 class="text-center mb-4 text-info">Iniciar sesión</h2>
-			<br><br>
+				<br>
 			<form method="post" action="login">
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label texto">Usuario</label>
@@ -62,11 +52,12 @@ if (usuario == null)
 					<input type="password" class="form-control border border-primary"
 						name="password" id="password" placeholder="Introduce tu clave">
 				</div>
-				<br> <br>
+				<br>
 				<div class="d-grid">
-					<button class="btn btn-outline-info" type="submit">Iniciar sesión</button> 
+					<button class="btn btn-outline-info" type="submit">Iniciar
+						Sesión</button>
+						<br>
 				</div>
-				<br> <br>
 			</form>
 		</div>
 	</div>

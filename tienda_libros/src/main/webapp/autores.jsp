@@ -22,7 +22,7 @@
         color: #000;
     }
 
-    a {
+ /*    a {
         opacity: 0.5;
     }
 
@@ -30,11 +30,11 @@
         opacity: 0.9;
         font-size: larger;
         font-weight: 200;
-    }
+    } */
 
     body {
         background-image: url("https://album.mediaset.es/eimg/2020/04/01/Fagw0vREqPnTbfcRoKSHm6.jpg?w=480");
-        background-repeat: no-repeat;
+        background-repeat: 100% no-repeat;
         background-size: 100% auto;
         height: 100%;
         padding-top: 5%;
@@ -53,6 +53,26 @@
 </style>
 
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid ">
+    <a class="navbar-brand letra text-center" href="orderpra.jsp">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+    
+        <li class="nav-item ">
+          <a class="nav-link letra" href="logout.jsp">
+		<button name="todo" value="logout" class="btn btn-danger boton p1">Cerrar Sesión  <i class="bi bi-power"></i></button></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
+<br>
     <h1>Autores</h1>
     <div class="list-group text-center">
         <table class="table table-dark table-hover">

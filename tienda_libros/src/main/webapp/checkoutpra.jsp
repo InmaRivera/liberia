@@ -56,19 +56,46 @@ section {
 	opacity: 0.9;
 	border-radius: 10px 10px 10px 10px;
 }
+.p1{
+text-align: right;
+}
+.letra{
+color: #fff;
+}
 </style>
 
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid ">
+    <a class="navbar-brand letra text-center" href="orderpra.jsp">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+    
+        <li class="nav-item ">
+          <a class="nav-link letra" href="logout.jsp">
+		<button name="todo" value="logout" class="btn btn-danger boton p1">Cerrar Sesión  <i class="bi bi-power"></i></button></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<form name="checkout" action="shopping" method="POST">
+		</form>
+	 <br>
 	<h1>Confirmar pedido</h1>
 	<br>
 	<br>
+
 	<section class="pt-5">
 		<p>
 			<strong>Has comprado los siguientes libros:</strong>
 		</p>
 		<!-- table -->
 		<div class=" justify-content-center text-center">
-		
+
 			<table class="table table-dark table-hover">
 				<tr>
 					<th>Título</th>
@@ -88,28 +115,21 @@ section {
 					<td><%=item.getAutor()%></td>
 					<td><%=item.getCantidad()%></td>
 					<td><%=item.getPrecio()%> €</td>
-					<hr>
+
 				</tr>
 				<% } session.invalidate(); %>
-
+				<hr>
 				<tr>
 					<th align="right" colspan="2">Total</th>
 					<th align="right"><%=request.getAttribute("precioTotal")%></th>
 					<th align="right"><%=request.getAttribute("cantidadTotal")%></th>
 				</tr>
 			</table>
-			<br/> 
-			<br/>
+			<br /> <br />
 			<p>Pulsa aquí para realizar otro pedido</p>
 			<div class="col-12 pt-5">
-				<!-- <button class="btn btn-outline-dark boton" type="submit"
-					href="shopping">
-					<a>Otro pedido</a>
-				</button> -->	
-				 <form name="checkout" action="shopping" method="POST">
-				<button class="btn btn-outline-dark boton" name="todo" value="otro"  href="orderpra.jsp">Otro pedido</button>
-				
-			</form>
+			<a href="orderpra.jsp" class="btn btn-outline-dark boton">Hacer otro pedido</a>
+		
 			</div>
 		</div>
 		<br />

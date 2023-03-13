@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ page session="true" import="java.util.*, es.studium.MVC.*"%>
+<%@ page session="true" import="java.util.*, es.studium.MVC.*"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,9 +15,10 @@
 <title>Pedidos</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<%		String usuario = (String) session.getAttribute("usuario");
-	int tipoUsuario = 1; 
-	%>
+<%
+String usuario = (String) session.getAttribute("usuario");
+int tipoUsuario = 1;
+%>
 </head>
 <style>
 .fondo:hover {
@@ -25,12 +26,12 @@
 	color: #000;
 }
 
-a {
+.trans {
 	opacity: 0.7;
-	color:#fff;
+	color: #fff;
 }
 
-a:hover {
+.trans:hover {
 	opacity: 0.9;
 	font-size: larger;
 	font-weight: 200;
@@ -39,7 +40,7 @@ a:hover {
 body {
 	background-image:
 		url("https://album.mediaset.es/eimg/2020/04/01/Fagw0vREqPnTbfcRoKSHm6.jpg?w=480");
-	background-repeat: no-repeat;
+	background-repeat:100% no-repeat;
 	background-size: 100% auto;
 	height: 100%;
 	padding-top: 5%;
@@ -57,7 +58,36 @@ h1, p {
 </style>
 
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid ">
+    <a class="navbar-brand letra text-center" href="orderpra.jsp">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+    
+        <li class="nav-item ">
+          <a class="nav-link letra" href="logout.jsp">
+		<button name="todo" value="logout" class="btn btn-danger boton p1">Cerrar Sesión  <i class="bi bi-power"></i></button></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
 	<h1>Pedidos</h1>
+	<p>
+		<%
+		String mensaje = (String) request.getAttribute("response");
+		if (mensaje != null)
+		{
+			out.println(mensaje);
+			request.removeAttribute("response");
+		}
+		%>
+	</p>
 	<!-- Example Code -->
 	<section>
 		<div class="list-group text-center">
@@ -65,25 +95,47 @@ h1, p {
 				<tr>
 					<th>Lista de pedidos</th>
 					<th>Estado del pedido</th>
+					<th>Opciones</th>
 				</tr>
-				<% 
-				ControladorLibros listalibro = new ControladorLibros();
+				<%
+				Libreria_pra libreria = new Libreria_pra();
 				Pedidos pedido = new Pedidos();
-				for (int i=0; i >= pedido.hashCode(); i++)
+				ArrayList<Pedidos> listadoPedido = libreria.getPedidos();
+				/* 	if (listadoPedido != null && listadoPedido.size() != 0)
+					{
+				*/
+				int idPedido = 0;
+				int idNextPedido = 0;
+				double totalLibroPedido = 0;
+				double totalPedido = 0;
+				String librosPedidos = "";
+				String cambiarEstado = "";
+
+				/* 	for (int i = 0; i < listadoPedido.size(); i++)
+					{
+						pedido = listadoPedido.get(i);
+						out.println(pedido); */
+
+				for (int j = 0; j < listadoPedido.size(); j++)
 				{
 					out.println("<td class='text-center'>" + pedido.getIdPedido() + " ");
-					out.println(pedido.isEnviado()+ "'>");
+					out.println(pedido.isEnviado() + "'>");
 					out.println("</td>");
-					
+
 				}
 				%>
 				<tr>
-					<td><%pedido.getIdPedido(); %></td>
-						<td><%pedido.isEnviado(); %><input class="btn btn-outline-light" type="submit"
-							value="Cambiar estado pedido"></td>
+					<td><%=pedido.getIdPedido()%></td>
+					<%-- <td><%=pedido.getEnviado() %></td> --%>
+					<td><%=pedido.isEnviado()%></td>
+					<td><input class="btn btn-outline-light" type="submit"
+						value="Cambiar estado pedido"></td>
 				</tr>
+				<%
+				/* } */
+				%>
 			</table>
-<!-- 			<a 	class="list-group-item list-group-item-action bg-dark">Estado del pedido</a> -->
+			<!-- 			<a 	class="list-group-item list-group-item-action bg-dark">Estado del pedido</a> -->
 			<br>
 			<!-- <a href="#" class="list-group-item list-group-item-action fondo">MOSTRAR EDITORIAL</a>
             <a href="#" class="list-group-item list-group-item-action fondo">MOSTRAR EDITORIAL</a>

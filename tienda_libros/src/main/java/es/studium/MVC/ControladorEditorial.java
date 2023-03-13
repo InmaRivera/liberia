@@ -17,7 +17,7 @@ public class ControladorEditorial
 		try {
 
 			// Paso 4: Ejecutar las sentencias
-			String sql = "SELECT * FROM editoriales;";
+			String sql = "SELECT * FROM editoriales ORDER BY nombreEditorial;";
 			ResultSet rs = Modelo.statement.executeQuery(sql);
 			Editoriales editorial;
 			while(rs.next())
