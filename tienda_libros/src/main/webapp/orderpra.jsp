@@ -143,14 +143,12 @@ section {
 					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 					libreria.cargarDatos();//cargamos los datos de libreria
 					LibroPra libro = new LibroPra();//OBJETO LIBROS 
-					/* LibroPra libro = new LibroPra(); *///OBJETO LIBROS 
+			
 					System.out.println("tamaño libreria : " + Libreria_pra.tamano());
 					for (int i = 0; i < Libreria_pra.tamano(); i++)
 					{
-						/* out.println("<option class='text-center' value='" + libreria.getId(i) + "'>"); */
-						out.println("<option class='text-center' value='" + i + "'>");
-						out.println(libreria.getId(i) + " " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " "
-						+ libreria.getPrecio(i) + " €");
+						out.println("<option class='text-center' value='" + libreria.getIdLibro(i) + "'>");
+						out.println(libreria.getIdLibro(i) +" " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " " + libreria.getPrecio(i) + " €");
 						out.println("</option>");
 					}
 					%>
@@ -182,6 +180,7 @@ section {
 			</p>
 			<table class="table table-dark table-hover">
 				<tr>
+					<th>ID</th>
 					<th>Título</th>
 					<th>Autor</th>
 					<th>Cantidad</th>
@@ -190,15 +189,19 @@ section {
 				</tr>
 				<%
 				// Scriplet 3: Muestra los libros del carrito 
-
+				int id =0;
 				for (int i = 0; i < cesta.size(); i++)
 				{
 					LibroPedido elementoPedido = cesta.get(i);
+					
 				%>
+				<%out.println("i despues del bucle a la cesta => "+i);%>
 				<tr>
 					<form name="borrarForm" action="shopping" method="POST">
 						<input type="hidden" name="todo" value="remove"> <input
-							type="hidden" name="indiceElemento" value="<%=i%>">
+							type="hidden" name="indiceElemento" value="<%=elementoPedido.getIdLibro()%>">
+
+						<td align="center"><%=elementoPedido.getIdLibro()%></td>
 						<td align="center"><%=elementoPedido.getTitulo()%></td>
 						<td lign="center"><%=elementoPedido.getAutor()%></td>
 						<td align="center"><%=elementoPedido.getCantidad()%></td>
@@ -206,6 +209,7 @@ section {
 						<!-- <td><input type="submit" value="Eliminar de la cesta" class="btn btn-outline-light"></td> -->
 						<td><input class="btn btn-outline-light" type="submit"
 							value="Eliminar de la cesta"></td>
+						<%out.println("i despues de añadir a la cesta => "+i);%>
 					</form>
 				</tr>
 				<%
@@ -222,11 +226,12 @@ section {
 			}
 			%>
 		</div>
-
+		<br>
 	</section>
 	<br>
 	<br>
 	<!-- End form -->
+
 </body>
 
 </html>

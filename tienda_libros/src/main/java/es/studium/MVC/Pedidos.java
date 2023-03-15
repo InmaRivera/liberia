@@ -10,7 +10,14 @@ public class Pedidos
 	private int idClienteFK;
 	boolean enviado;
 	private static final int ENVIADO = 1;
-
+	//constructor vacío 
+		public Pedidos()
+		{	
+			idPedido = 0;
+			idClienteFK = 0 ;
+			enviado = false;
+			
+		}
 
 	// Constructor con argumentos
 	public Pedidos(int idPedido, Date fechaPedido, Date fechaEnviado, int idClienteFK, int enviado) {
@@ -20,9 +27,7 @@ public class Pedidos
 		this.idClienteFK = idClienteFK;
 		this.enviado = (enviado==ENVIADO);
 	}
-	//constructor vacío 
-	public Pedidos()
-	{	}
+	
 	public int getIdPedido()
 	{
 		return idPedido;

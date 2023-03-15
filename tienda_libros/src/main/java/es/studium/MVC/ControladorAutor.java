@@ -25,9 +25,6 @@ public class ControladorAutor
 				autor = new Autores(	rs.getInt("idAutor"), 
 						rs.getString("nombreAutor"));
 				listadoAutor.add(autor);
-				
-				System.out.println(rs.getInt("idAutor")+ " " +
-						rs.getString("nombreAutor"));
 			}
 		}
 		catch(Exception ex)

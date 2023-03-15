@@ -11,6 +11,8 @@
 	rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
 	rel="stylesheet">
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Libros</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -103,24 +105,19 @@ h1,h3, p {
 					for (int i = 0; i < libreria.tamano(); i++)
 					{
 					%>
-					<td><%=libreria.getId(i)%></td>
+					<td><%=libreria.getIdLibro(i)%></td>
 					<td><%=libreria.getTitulo(i)%></td>
 					<td><%=libreria.getAutor(i)%></td>
 					<%-- 	<td><%=libreria.getEditorial(i) %></td>  --%>
 					<td><%=libreria.getStock(i)%></td>
 					<!-- Eliminar libro  -->
-					<%
-					libreria.borrar(i);
-					int  idLibro = -1;
-					String respuesta = "";			
-					%>
-					<td><input class="btn btn-outline-danger" type="submit"
+				
+					<td><input class="btn btn-danger"  type="submit"
 						value="borrar"></td>
 					</tr>
-					<%
-					respuesta = "<h2>Eliminado correctamente</h2>";
-					}
-					%>
+				<%
+				}
+				%>
 					<%-- 		<%
 				out.println("<tr>");
 				

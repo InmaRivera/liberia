@@ -38,7 +38,6 @@ a:hover {
 	font-size: larger;
 	font-weight: 200;
 } */
-
 body {
 	background-image:
 		url("https://album.mediaset.es/eimg/2020/04/01/Fagw0vREqPnTbfcRoKSHm6.jpg?w=480");
@@ -64,24 +63,31 @@ h1, h3, p {
 </style>
 
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-  <div class="container-fluid ">
-    <a class="navbar-brand letra text-center" href="orderpra.jsp">Inicio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-    
-        <li class="nav-item ">
-          <a class="nav-link letra" href="logout.jsp">
-		<button name="todo" value="logout" class="btn btn-danger boton p1">Cerrar Sesión  <i class="bi bi-power"></i></button></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<br>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+		<div class="container-fluid ">
+			<a class="navbar-brand letra text-center" href="orderpra.jsp">Inicio</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-flex justify-content-end"
+				id="navbarNav">
+				<ul class="navbar-nav">
+
+					<li class="nav-item "><a class="nav-link letra"
+						href="logout.jsp">
+							<button name="todo" value="logout"
+								class="btn btn-danger boton p1">
+								Cerrar Sesión <i class="bi bi-power"></i>
+							</button>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<br>
 
 	<h1>Modificar libro</h1>
 	<%
@@ -105,37 +111,37 @@ h1, h3, p {
 						<select class="form-select" id="idLibro"
 							aria-label="Floating label select example">
 							<%
-					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
-					libreria.cargarDatos();//cargamos los datos de libreria
-					ArrayList<Editoriales> listadoEditorial = ControladorEditorial.getEditoriales();
-					int idLibro = 0;
-					String tituloLibro = "";
-					int cantidad = 0;
-					double precio= 0;
-					int editorialFK =0;
-					int AutorFK=0;
-					
-					LibroPra libro = new LibroPra();//OBJETO LIBROS 
-					Editoriales editorial = new Editoriales();
+										Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
+										libreria.cargarDatos();//cargamos los datos de libreria
+										ArrayList<Editoriales> listadoEditorial = ControladorEditorial.getEditoriales();
+										int idLibro = 0;
+										String tituloLibro = "";
+										int cantidad = 0;
+										double precio= 0;
+										int editorialFK =0;
+										int AutorFK=0;
+										
+										LibroPra libro = new LibroPra();//OBJETO LIBROS 
+										Editoriales editorial = new Editoriales();
 
-					for (int i = 0; i < Libreria_pra.tamano(); i++)
-					{
-						out.println("<option class='text-center' value='" + libreria.getId(i) + "'>");
-						out.println(libreria.getId(i) + " " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " "
-						+ libreria.getPrecio(i) + " €");
-						out.println("</option>");
-					}
-					libreria.modificarLibro(idLibro, tituloLibro, cantidad, precio, editorialFK, AutorFK);
-					%>
+										for (int i = 0; i < Libreria_pra.tamano(); i++)
+										{
+											out.println("<option class='text-center' value='" + libreria.getIdLibro(i) + "'>");
+											out.println(libreria.getIdLibro(i) + " " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " "
+											+ libreria.getPrecio(i) + " €");
+											out.println("</option>");
+										}
+										/* libreria.modificarLibro(idLibro, tituloLibro, cantidad, precio, editorialFK, AutorFK); */
+							%>
 						</select> <label class="color:#000;" for="floatingSelect">Seleccione
 							un libro:</label>
 					</div>
 					<br> <br>
-	
+
 					<div class="mb-3">
 						<label for="idLibro" class="form-label label1">ID libro</label> <input
 							type="text" class="form-control" id="idLibro"
-							value="<%=libreria.getId(idLibro) %>" placeholder="ID Libro">
+							value="<%=libreria.getIdLibro(idLibro)%>" placeholder="ID Libro">
 					</div>
 					<div class="mb-3">
 						<label for="titulo" class="form-label label1">Titulo Libro</label>
@@ -162,13 +168,12 @@ h1, h3, p {
 					</div>
 				</form>
 			</div>
-		
+
 			</form>
 			<div class="text-center">
 				<%libreria.modificarLibro(idLibro, tituloLibro, cantidad, precio, editorialFK, AutorFK); %>
 				<form name="modificar" action="shopping" method="POST">
-					<button name="todo" value="Editar"
-						class="btn btn-success boton">Editar</button>
+					<button name="todo" value="Editar" class="btn btn-success boton">Editar</button>
 
 					<form name="checkout" action="shopping" method="POST">
 						<button name="todo" value="volver" class="btn btn-danger boton">Volver</button>

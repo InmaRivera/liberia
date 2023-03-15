@@ -36,10 +36,9 @@
 		correctamente</h3>
 	
 	<div class="vh-100 d-flex justify-content-center align-items-center">
-	
 		<div class="col-md-4 p-5 shadow border-1 rounded-3 fondo">
 			<h2 class="text-center mb-4 text-info">Iniciar sesión</h2>
-				<br>
+			<br><br>
 			<form method="post" action="login">
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label texto">Usuario</label>
@@ -52,12 +51,11 @@
 					<input type="password" class="form-control border border-primary"
 						name="password" id="password" placeholder="Introduce tu clave">
 				</div>
-				<br>
+				<br> <br>
 				<div class="d-grid">
-					<button class="btn btn-outline-info" type="submit">Iniciar
-						Sesión</button>
-						<br>
+					<button class="btn btn-outline-info" type="submit">Iniciar sesión</button> 
 				</div>
+				<br> <br>
 			</form>
 		</div>
 	</div>

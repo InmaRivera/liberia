@@ -121,8 +121,9 @@ color: #fff;
 				<hr>
 				<tr>
 					<th align="right" colspan="2">Total</th>
-					<th align="right"><%=request.getAttribute("precioTotal")%></th>
+					
 					<th align="right"><%=request.getAttribute("cantidadTotal")%></th>
+					<th align="right"><%=request.getAttribute("precioTotal")%>€</th>
 				</tr>
 			</table>
 			<br /> <br />

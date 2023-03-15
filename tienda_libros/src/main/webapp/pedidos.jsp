@@ -12,6 +12,8 @@
 	rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
 	rel="stylesheet">
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Pedidos</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -93,47 +95,53 @@ h1, p {
 		<div class="list-group text-center">
 			<table class="table table-dark table-hover">
 				<tr>
+					<th>ID Pedido</th>
 					<th>Lista de pedidos</th>
+					<th>fecha Pedido</th>
+					<th>ID cliente</th>
 					<th>Estado del pedido</th>
 					<th>Opciones</th>
 				</tr>
 				<%
 				Libreria_pra libreria = new Libreria_pra();
-				Pedidos pedido = new Pedidos();
 				ArrayList<Pedidos> listadoPedido = libreria.getPedidos();
 				/* 	if (listadoPedido != null && listadoPedido.size() != 0)
 					{
 				*/
-				int idPedido = 0;
+			/* 	int idPedido = 0;
 				int idNextPedido = 0;
 				double totalLibroPedido = 0;
 				double totalPedido = 0;
 				String librosPedidos = "";
-				String cambiarEstado = "";
+				String cambiarEstado = ""; */
 
 				/* 	for (int i = 0; i < listadoPedido.size(); i++)
 					{
 						pedido = listadoPedido.get(i);
 						out.println(pedido); */
-
+						Pedidos pedido = new Pedidos();
 				for (int j = 0; j < listadoPedido.size(); j++)
 				{
+					pedido = listadoPedido.get(j);				
 					out.println("<td class='text-center'>" + pedido.getIdPedido() + " ");
-					out.println(pedido.isEnviado() + "'>");
+					out.println(pedido.getFechaPedido() +" " +pedido.getIdClienteFK()+ " "+pedido.isEnviado() + " " + pedido.getEnviado());
 					out.println("</td>");
-
 				}
+				
 				%>
 				<tr>
+					<td><%=pedido.getEnviado() %></td> 
 					<td><%=pedido.getIdPedido()%></td>
+					<td><%=pedido.getFechaPedido()%></td>
+					<td><%=pedido.getIdClienteFK()%></td> 
 					<%-- <td><%=pedido.getEnviado() %></td> --%>
-					<td><%=pedido.isEnviado()%></td>
+			<td><%=pedido.isEnviado()%></td> 
 					<td><input class="btn btn-outline-light" type="submit"
 						value="Cambiar estado pedido"></td>
 				</tr>
-				<%
-				/* } */
-				%>
+		<%-- 	 <%
+				 } 
+				%>  --%>
 			</table>
 			<!-- 			<a 	class="list-group-item list-group-item-action bg-dark">Estado del pedido</a> -->
 			<br>

@@ -25,9 +25,6 @@ public class ControladorEditorial
 				editorial = new Editoriales(	rs.getInt("idEditorial"), 
 						rs.getString("nombreEditorial"));
 				listadoEditorial.add(editorial);
-				
-				System.out.println(rs.getInt("idEditorial")+ " " +
-						rs.getString("nombreEditorial"));
 			}
 		}
 		catch(Exception ex)

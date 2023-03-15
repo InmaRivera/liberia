@@ -12,6 +12,8 @@
 	rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
 	rel="stylesheet">
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Alta Libros</title>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -114,8 +116,6 @@ h1, h3, p {
 						<%
 						Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 						libreria.cargarDatos();//cargamos los datos de libreria
-						ArrayList<Editoriales> listadoEditorial = new ArrayList<Editoriales>();
-						ArrayList<Autores> listadoAutor = new ArrayList<Autores>();
 						String tituloLibro = "";
 						double precio = 0;
 						int cantidad = 0;
@@ -133,13 +133,41 @@ h1, h3, p {
 							value="<%=libro.getTituloLi()%>" placeholder="Nombre Libro">
 					</div>
 					<div class="mb-3">
-						<label for="Autor" class="form-label">Nombre Autor</label> <input
-							type="text" class="form-control" id="Autor"
+						<label for="Autor" class="form-label">Escoge un Autor</label>
+						<input type="hidden" name="todo" value="add">
+						<select	class="form-select" id="idAutor"
+							aria-label="Floating label select example">
+							<%
+							ArrayList<Autores> listadoAutor = new ArrayList<Autores>();
+							for (int i = 0; i < Libreria_pra.tamano(); i++)
+							{						
+								out.println("<option class='text-center' value='" + libreria.getAutor(i) + "'>");
+								out.println(libreria.getAutor().get(i).getIdAutor());
+								out.println("</option>");
+							}
+							%>
+						</select> <br><input type="text" class="form-control" id="Autor"
 							value="<%=libro.getAutor()%>" placeholder="Nombre Autor">
 					</div>
 					<div class="mb-3">
-						<label for="Editorial" class="form-label">Nombre Editorial</label>
-						<input type="text" class="form-control" id="Editorial"
+						<label for="Editorial" class="form-label">Escoge una Editorial</label>
+						<input type="hidden" name="todo" value="add">
+						<Select type="text" class="form-control" id="Editorial"
+							value="idEditorial" placeholder="Nombre Editorial">
+							<%
+							ArrayList<Editoriales> listadoEditorial = new ArrayList<Editoriales>();
+							libreria.getEditoriales();
+							
+							/* System.out.println("tamaño editorial : " + libreria.getNombreEditorial()); */
+							System.out.println("tamaño listado : " + listadoEditorial.size());
+							for (int i = 0; i < Libreria_pra.tamano();  i++)
+							{
+								out.println("<option class='text-center' value='" + listadoEditorial.get(i) + "'>");
+								out.println(listadoEditorial.get(i).getNombreEditorial());  
+								out.println("</option>");
+							}
+							%>
+						</Select> <br> <input type="text" class="form-control" id="Editorial"
 							value="<%=libro.getEditorial()%>" placeholder="Nombre Editorial">
 					</div>
 					<div class="mb-3">

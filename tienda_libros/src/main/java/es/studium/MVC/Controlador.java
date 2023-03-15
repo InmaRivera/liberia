@@ -69,11 +69,11 @@ public class Controlador extends HttpServlet {
 			{
 				// Mandado por order.jsp con los parámetros idLibro y cantidad
 				// Creamos un elementoPedido y lo añadimos al carrito
-				int indice = Integer.parseInt(request.getParameter("idLibro"));
+				int idLibroPedido = Integer.parseInt(request.getParameter("idLibro"));
 				int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-				int stock = Libreria_pra.getStock(indice);
+				int stock = Libreria_pra.getStock(idLibroPedido);
 				if (cantidad <= stock) {
-					LibroPedido nuevoElementoPedido = new LibroPedido(indice, cantidad);
+					LibroPedido nuevoElementoPedido = new LibroPedido(idLibroPedido, cantidad);
 					if(elCarrito==null)
 					{
 
@@ -123,8 +123,8 @@ public class Controlador extends HttpServlet {
 				}
 				else 
 				{
-					
-					request.setAttribute("response", "<h3 class='text-danger'>'ERROR: no hay suficientes libros en nuestros stock.'</h3>");
+					 
+					request.setAttribute("response", "<h3 class='text-center text-danger alertify.js'>ERROR: no hay suficientes libros en nuestros stock.</h3>");
 					//					mensaje = "	throw new ServletException(\"alertify.success('ERROR: no hay suficientes libros en nuestros stock.');\");";
 					//					throw new ServletException("alertify.success('ERROR: no hay suficientes libros en nuestros stock.');");
 				}
@@ -162,7 +162,7 @@ public class Controlador extends HttpServlet {
 					// Coloca el precioTotal y la cantidad total en el request
 					request.setAttribute("precioTotal", sb.toString());
 					request.setAttribute("cantidadTotal", cantidadTotalOrdenada+"");
- //Obtenemos el usuario de la sesión
+					//Obtenemos el usuario de la sesión
 					 usuario = (String) session.getAttribute("usuario");
 					System.out.println(usuario);
 					
@@ -171,13 +171,30 @@ public class Controlador extends HttpServlet {
 					DateTimeFormatter formato =  DateTimeFormatter.ofPattern("dd MM yy");
 					String texto = fecha.format(formato);
 					LocalDate parseDate = LocalDate.parse(texto,formato);
-					
-					//llamamos a la clase 
-					
+//		
+					//llamamos a la clase 	
 					Libreria_pra insertarPedido = new Libreria_pra();
 					try
 					{
+						int error = -1;
+//						String respuesta = "";
 						insertarPedido.insertarPedidos(usuario, fecha);
+						request.setAttribute("response","<h3 class='text-success'>Pedido realizado correctamente</h3>");
+						for (LibroPedido libro:elCarrito)
+						{
+							int idLibro = libro.getIdLibro();
+							System.out.println("id Libro seleccionado " + idLibro);
+						}
+						
+						if (error == 1)
+						{
+							request.setAttribute("response","<h5 class='text-danger'>Error al crear pedido. <h5>");
+						}
+						else
+						{
+							request.setAttribute("response","<h5 class='text-success'>Pedido creado correctamente. <h5>");
+							
+						}
 					} catch (ServletException e)
 					{
 						// TODO Auto-generated catch block
@@ -188,7 +205,7 @@ public class Controlador extends HttpServlet {
 						e.printStackTrace();
 					}
 					//Respuesta
-					request.setAttribute("response","Este usuario no está disponible");
+					request.setAttribute("response","<h5 class='text-danger'>Este usuario no está disponible<h5>");
 					
 					// Redirige a checkout.jsp
 					nextPage = "/checkoutpra.jsp";
@@ -213,22 +230,10 @@ public class Controlador extends HttpServlet {
 
 						e.printStackTrace();
 					}
-					try
-					{//insertar autor
-						libros.insertarAutor(autor);
-					} catch (SQLException e)
-					{
-
-						e.printStackTrace();
-					}
-					try
-					{//insertar editorial
-						libros.insertarEditorial(editorial);
-					} catch (SQLException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				
+	
+					//Respuesta
+//					request.setAttribute("response","<h3 class='text-success'>Pedido realizado correctamente</h3>");
 					nextPage = "/AltaLibro.jsp";
 				}
 
@@ -271,24 +276,21 @@ public class Controlador extends HttpServlet {
 			else if (todo.equals("borrar"))
 			{
 				Libreria_pra libros = new Libreria_pra();
-				int borrarLibro = Integer.parseInt(request.getParameter("borrar"));
-				//				Libreria_pra libros = new Libreria_pra();
-				libros.borrar(-1);
-				//				{
-				//				int listadoLibro = Integer.parseInt(request.getParameter("borrar"));
-				////				remove(listadoLibro);
-				//				
-				//				}
+				
+				int borrarLibro = Integer.parseInt(request.getParameter("idLibro"));
+				Libreria_pra.borrar(borrarLibro);
+				System.out.println("el libro se ha borrado " + borrarLibro);
+			
 				int borrar = -1;
-				String respuesta ="";
+		
 				if(borrar == 0)
 				{
-					respuesta = "No se ha podido elimnar el libro";
+					request.setAttribute("response", "<h3 class='text-center text-danger'>Libro no se ha eliminado.</h3>");
 
 				}
 				else if (borrar == 1) 
 				{
-					respuesta = "Se ha eliminado correctamente";
+					request.setAttribute("response", "<h3 class='text-center text-success'>Libro borrado correctamente.</h3>");
 				}
 				nextPage = "/libros.jsp";
 			}
