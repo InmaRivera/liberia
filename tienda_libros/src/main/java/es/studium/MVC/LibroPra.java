@@ -8,6 +8,7 @@ public class LibroPra
 	private double precioLi;
 	private String autor;
 	private String editorial;
+	private String nombreEditorial;
 	private Autores idAutorFK = new Autores(idLibro, autor);
 	private Editoriales idEditorialFK = new Editoriales(idLibro, autor);
 //	Constructor vacío
@@ -18,6 +19,7 @@ public class LibroPra
 		precioLi = 0;
 		autor = "";
 		editorial = "";
+		nombreEditorial = "";
 //		idAutorFK = 0;	
 	}
 
@@ -92,6 +94,16 @@ public class LibroPra
 		this.editorial = editorial;
 	}
 
+	public String getNombreEditorial()
+	{
+		return nombreEditorial;
+	}
+
+	public void setNombreEditorial(String nombreEditorial)
+	{
+		this.nombreEditorial = nombreEditorial;
+	}
+
 	public Autores getIdAutorFK()
 	{
 		return idAutorFK;
@@ -111,6 +123,6 @@ public class LibroPra
 	{
 		this.idEditorialFK = idEditorialFK;
 	}
-	
+
 	
 }

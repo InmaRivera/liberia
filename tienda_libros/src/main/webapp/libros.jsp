@@ -98,10 +98,7 @@ h1,h3, p {
 					<%
 					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 					libreria.cargarDatos();//cargamos los datos de libreria 
-					/* ControladorLibros.cargarLibros(); */
 					LibroPra libro = new LibroPra();//OBJETO LIBROS
-					/* 		ControladorLibros mostrarLibros = new ControladorLibros(); 
-							mostrarLibros.cargarLibros(); */
 					for (int i = 0; i < libreria.tamano(); i++)
 					{
 					%>
@@ -112,8 +109,8 @@ h1,h3, p {
 					<td><%=libreria.getStock(i)%></td>
 					<!-- Eliminar libro  -->
 				
-					<td><input class="btn btn-danger"  type="submit"
-						value="borrar"></td>
+					<td><input type="hidden" name="todo" class="btn btn-danger"  type="submit"
+						value="borrar"><button class="btn btn-danger" value="<%=libreria.getIdLibro(i)%>">Borrar</button> </td>
 					</tr>
 				<%
 				}

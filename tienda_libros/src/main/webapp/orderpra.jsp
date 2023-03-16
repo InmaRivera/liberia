@@ -23,11 +23,17 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css" />
 <script src="js/alertify.min.js"></script>
+<script>
+	//alertify.set('notifier', 'position', 'top-center'); // establece la posición de la alerta
+	//alertify.success('¡Bienvenido, has iniciado sesión correctamente!'); // muestra un mensaje de éxito
+	//alertify.error('¡Mensaje de error!'); // muestra un mensaje de error
+	//alertify.warning('¡Mensaje de advertencia!'); // muestra un mensaje de advertencia
+</script>
+
 
 <%
 String usuario = (String) session.getAttribute("usuario");
-if (usuario == null)
-{
+if (usuario == null) {
 	response.sendRedirect("./index.jsp");
 }
 %>
@@ -125,13 +131,13 @@ section {
 			<strong>Elegir un libro y la cantidad:</strong>
 		</p>
 		<%
-		String mensaje = (String) request.getAttribute("response");
-		if (mensaje != null)
-		{
+		String mensaje = (String) request.getAttribute("alertify.error");
+		if (mensaje != null) {
 			out.println(mensaje);
-			request.removeAttribute("response");
+			request.removeAttribute("alertify.error");
 		}
 		%>
+	
 		<!-- formulario-->
 		<div class=" justify-content-center text-center">
 			<form name="AgregarForm" action="shopping" method="POST">
@@ -143,12 +149,13 @@ section {
 					Libreria_pra libreria = new Libreria_pra(); //OBJETO LIBRERIA
 					libreria.cargarDatos();//cargamos los datos de libreria
 					LibroPra libro = new LibroPra();//OBJETO LIBROS 
-			
+
 					System.out.println("tamaño libreria : " + Libreria_pra.tamano());
 					for (int i = 0; i < Libreria_pra.tamano(); i++)
 					{
 						out.println("<option class='text-center' value='" + libreria.getIdLibro(i) + "'>");
-						out.println(libreria.getIdLibro(i) +" " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " " + libreria.getPrecio(i) + " €");
+						out.println(libreria.getIdLibro(i) + " " + libreria.getTitulo(i) + "  " + libreria.getAutor(i) + " "
+						+ libreria.getPrecio(i) + " €");
 						out.println("</option>");
 					}
 					%>
@@ -161,6 +168,12 @@ section {
 				</div>
 				<br> <br> <input type="submit" value="Añadir a la cesta"
 					class="btn btn-outline-dark boton">
+						<script>
+			//alertify.set('alert','position', 'top-center'); // establece la posición de la alerta
+			//alertify.success('¡Mensaje de éxito!'); // muestra un mensaje de éxito
+			//alertify.error('¡No hay suficiente stock de este libro!',2); // muestra un mensaje de error
+			//alertify.warning('¡Mensaje de advertencia!'); // muestra un mensaje de advertencia
+		</script> 
 				<!-- 	<div class="col-12 pt-5">
 					 <button class="btn btn-outline-dark boton" type="submit"
 							value="Añadir a la cesta">Añadir a la cesta</button> 
@@ -189,18 +202,20 @@ section {
 				</tr>
 				<%
 				// Scriplet 3: Muestra los libros del carrito 
-				int id =0;
+				int id = 0;
 				for (int i = 0; i < cesta.size(); i++)
 				{
 					LibroPedido elementoPedido = cesta.get(i);
-					
 				%>
-				<%out.println("i despues del bucle a la cesta => "+i);%>
+				<%
+				out.println("i despues del bucle a la cesta => " + i);
+				%>
 				<tr>
 					<form name="borrarForm" action="shopping" method="POST">
 						<input type="hidden" name="todo" value="remove"> <input
-							type="hidden" name="indiceElemento" value="<%=elementoPedido.getIdLibro()%>">
-
+							type="hidden" name="indiceElemento"
+							value="<%=elementoPedido.getIdLibro()%>">
+				
 						<td align="center"><%=elementoPedido.getIdLibro()%></td>
 						<td align="center"><%=elementoPedido.getTitulo()%></td>
 						<td lign="center"><%=elementoPedido.getAutor()%></td>
@@ -209,7 +224,9 @@ section {
 						<!-- <td><input type="submit" value="Eliminar de la cesta" class="btn btn-outline-light"></td> -->
 						<td><input class="btn btn-outline-light" type="submit"
 							value="Eliminar de la cesta"></td>
-						<%out.println("i despues de añadir a la cesta => "+i);%>
+						<%
+						out.println("i despues de añadir a la cesta => " + i);
+						%>
 					</form>
 				</tr>
 				<%

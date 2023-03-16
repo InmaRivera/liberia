@@ -142,33 +142,32 @@ h1, h3, p {
 							for (int i = 0; i < Libreria_pra.tamano(); i++)
 							{						
 								out.println("<option class='text-center' value='" + libreria.getAutor(i) + "'>");
-								out.println(libreria.getAutor().get(i).getIdAutor());
+								out.println(libreria.getAutor().get(i).getIdAutor()+"-"+libreria.getAutor().get(i).getAutor());
 								out.println("</option>");
 							}
 							%>
 						</select> <br><input type="text" class="form-control" id="Autor"
-							value="<%=libro.getAutor()%>" placeholder="Nombre Autor">
+							value="<%=libro.getAutor().split("-")%>" placeholder="Nombre Autor" disabled>
 					</div>
 					<div class="mb-3">
 						<label for="Editorial" class="form-label">Escoge una Editorial</label>
 						<input type="hidden" name="todo" value="add">
 						<Select type="text" class="form-control" id="Editorial"
-							value="idEditorial" placeholder="Nombre Editorial">
+							value="idEditorial">
 							<%
-							ArrayList<Editoriales> listadoEditorial = new ArrayList<Editoriales>();
-							libreria.getEditoriales();
-							
+							ArrayList<Editoriales> listadoEditorial = new ArrayList<Editoriales>();	
 							/* System.out.println("tamaño editorial : " + libreria.getNombreEditorial()); */
-							System.out.println("tamaño listado : " + listadoEditorial.size());
+							System.out.println("tamaño listado editorial: " + listadoEditorial.size());
 							for (int i = 0; i < Libreria_pra.tamano();  i++)
 							{
-								out.println("<option class='text-center' value='" + listadoEditorial.get(i) + "'>");
-								out.println(listadoEditorial.get(i).getNombreEditorial());  
+								out.println("<option class='text-center' value='" + libreria.getEditorial(i) + "'>");
+								out.println(libreria.getEditoriales().get(i).getIdEditorial() + " - " + libreria.getEditoriales().get(i).getNombreEditorial());  
 								out.println("</option>");
 							}
+
 							%>
 						</Select> <br> <input type="text" class="form-control" id="Editorial"
-							value="<%=libro.getEditorial()%>" placeholder="Nombre Editorial">
+							value="<%=libro.getEditorial()%> placeholder="Nombre Editorial"  disabled>
 					</div>
 					<div class="mb-3">
 						<label for="Cantidad" class="form-label">Cantidad Libro</label> <input

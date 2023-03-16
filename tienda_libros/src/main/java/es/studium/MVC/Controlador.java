@@ -124,7 +124,7 @@ public class Controlador extends HttpServlet {
 				else 
 				{
 					 
-					request.setAttribute("response", "<h3 class='text-center text-danger alertify.js'>ERROR: no hay suficientes libros en nuestros stock.</h3>");
+					request.setAttribute("alertify.error", "<h3 class='text-center text-danger'>ERROR: no hay suficientes libros en nuestros stock.</h3>");
 					//					mensaje = "	throw new ServletException(\"alertify.success('ERROR: no hay suficientes libros en nuestros stock.');\");";
 					//					throw new ServletException("alertify.success('ERROR: no hay suficientes libros en nuestros stock.');");
 				}
@@ -188,11 +188,11 @@ public class Controlador extends HttpServlet {
 						
 						if (error == 1)
 						{
-							request.setAttribute("response","<h5 class='text-danger'>Error al crear pedido. <h5>");
+							request.setAttribute("alertify.error","<h5 class='text-danger'>Error al crear pedido. <h5>");
 						}
 						else
 						{
-							request.setAttribute("response","<h5 class='text-success'>Pedido creado correctamente. <h5>");
+							request.setAttribute("alertify.success","<h5 class='text-success'>Pedido realizado correctamente. <h5>");
 							
 						}
 					} catch (ServletException e)
@@ -290,7 +290,7 @@ public class Controlador extends HttpServlet {
 				}
 				else if (borrar == 1) 
 				{
-					request.setAttribute("response", "<h3 class='text-center text-success'>Libro borrado correctamente.</h3>");
+					request.setAttribute("alertify.success", "<h3 class='text-center text-success'>Libro borrado correctamente.</h3>");
 				}
 				nextPage = "/libros.jsp";
 			}
