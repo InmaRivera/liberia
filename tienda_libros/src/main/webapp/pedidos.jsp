@@ -103,8 +103,15 @@ h1, p {
 					<th>Opciones</th>
 				</tr>
 				<%
+			
+			/* 	for (int i = 0; i < Libreria_pra.tamano(); i++)
+				{						
+					out.println("<option class='text-center' value='" + libreria.getAutor(i) + "'>");
+					out.println(libreria.getAutor().get(i).getIdAutor()+"-"+libreria.getAutor().get(i).getAutor());
+					out.println("</option>");
+				} */
 				Libreria_pra libreria = new Libreria_pra();
-				ArrayList<Pedidos> listadoPedido = libreria.getPedidos();
+				ArrayList<Pedidos> listadoPedido = new ArrayList<Pedidos>();
 				/* 	if (listadoPedido != null && listadoPedido.size() != 0)
 					{
 				*/
@@ -120,17 +127,17 @@ h1, p {
 						pedido = listadoPedido.get(i);
 						out.println(pedido); */
 						Pedidos pedido = new Pedidos();
-				for (int j = 0; j < listadoPedido.size(); j++)
+				for (int j = 0; j < Libreria_pra.tamano(); j++)
 				{
-					pedido = listadoPedido.get(j);				
-					out.println("<td class='text-center'>" + pedido.getIdPedido() + " ");
+					pedido = libreria.getPedidos().get(j);				
+			/* 		out.println("<td class='text-center'>" + pedido.getIdPedido() + " ");
 					out.println(pedido.getFechaPedido() +" " +pedido.getIdClienteFK()+ " "+pedido.isEnviado() + " " + pedido.getEnviado());
-					out.println("</td>");
+					out.println("</td>"); */
 				}
 				
 				%>
 				<tr>
-					<td><%=pedido.getEnviado() %></td> 
+					<td><%=libreria.getPedidos() %></td> 
 					<td><%=pedido.getIdPedido()%></td>
 					<td><%=pedido.getFechaPedido()%></td>
 					<td><%=pedido.getIdClienteFK()%></td> 

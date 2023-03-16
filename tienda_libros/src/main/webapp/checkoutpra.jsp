@@ -117,7 +117,7 @@ color: #fff;
 					<td><%=item.getPrecio()%> €</td>
 
 				</tr>
-				<% } session.invalidate(); %>
+				<% } session.removeAttribute("carrito"); %>
 				<hr>
 				<tr>
 					<th align="right" colspan="2">Total</th>
@@ -129,7 +129,7 @@ color: #fff;
 			<br /> <br />
 			<p>Pulsa aquí para realizar otro pedido</p>
 			<div class="col-12 pt-5">
-			<a href="orderpra.jsp" class="btn btn-outline-dark boton">Hacer otro pedido</a>
+			<a href="shopping" class="btn btn-outline-dark boton">Hacer otro pedido</a>
 		
 			</div>
 		</div>
